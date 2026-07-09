@@ -105,7 +105,7 @@ export function CategoryPage() {
               <Filter className="w-4 h-4" />
               FILTER
               {(selectedColors.length + selectedSizes.length) > 0 && (
-                <span className="w-5 h-5 bg-emerald-400 text-black rounded-full flex items-center justify-center text-[10px]">
+                <span className="w-5 h-5 bg-rose-400 text-black rounded-full flex items-center justify-center text-[10px]">
                   {selectedColors.length + selectedSizes.length}
                 </span>
               )}
@@ -140,7 +140,7 @@ export function CategoryPage() {
                     setSelectedColors([])
                     setSelectedSizes([])
                   }}
-                  className="text-[11px] text-emerald-400 hover:text-emerald-300 transition-colors"
+                  className="text-[11px] text-rose-400 hover:text-rose-300 transition-colors"
                 >
                   Clear all
                 </button>
@@ -162,7 +162,7 @@ export function CategoryPage() {
                       }}
                       className={`flex items-center gap-2 px-3 py-2 border text-[10px] font-medium uppercase transition-colors ${
                         selectedColors.includes(color)
-                          ? 'border-emerald-400 bg-emerald-400/10 text-emerald-400'
+                          ? 'border-rose-400 bg-rose-400/10 text-rose-400'
                           : 'border-white/20 text-gray-400 hover:border-white/40'
                       }`}
                     >
@@ -187,7 +187,7 @@ export function CategoryPage() {
                       }}
                       className={`w-12 h-10 border text-[11px] font-bold transition-colors ${
                         selectedSizes.includes(size)
-                          ? 'border-emerald-400 bg-emerald-400/10 text-emerald-400'
+                          ? 'border-rose-400 bg-rose-400/10 text-rose-400'
                           : 'border-white/20 text-gray-400 hover:border-white/40'
                       }`}
                     >
@@ -230,7 +230,7 @@ export function CategoryPage() {
                   setSelectedColors([])
                   setSelectedSizes([])
                 }}
-                className="text-emerald-400 hover:text-emerald-300 text-sm font-medium"
+                className="text-rose-400 hover:text-rose-300 text-sm font-medium"
               >
                 Clear filters
               </button>

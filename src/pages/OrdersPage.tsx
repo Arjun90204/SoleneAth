@@ -52,7 +52,7 @@ export function OrdersPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center pt-16">
-        <div className="w-12 h-12 border-4 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+        <div className="w-12 h-12 border-4 border-rose-400 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -69,7 +69,7 @@ export function OrdersPage() {
             <p className="text-gray-400 mb-8">Looks like you haven't placed any orders.</p>
             <Link
               to="/"
-              className="inline-flex items-center px-8 py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-emerald-400 transition-colors"
+              className="inline-flex items-center px-8 py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-rose-400 transition-colors"
             >
               START SHOPPING <ChevronRight className="ml-2 w-4 h-4" />
             </Link>
@@ -95,7 +95,7 @@ export function OrdersPage() {
                       order.status === 'pending' ? 'bg-yellow-400/10 text-yellow-400' :
                       order.status === 'processing' ? 'bg-blue-400/10 text-blue-400' :
                       order.status === 'shipped' ? 'bg-purple-400/10 text-purple-400' :
-                      'bg-emerald-400/10 text-emerald-400'
+                      'bg-rose-400/10 text-rose-400'
                     }`}>
                       {order.status}
                     </span>

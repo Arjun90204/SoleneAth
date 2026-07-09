@@ -19,7 +19,7 @@ export function CartPage() {
           <p className="text-gray-400 mb-8">Sign in to view and manage your cart.</p>
           <Link
             to="/login"
-            className="inline-flex items-center px-8 py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-emerald-400 transition-colors"
+            className="inline-flex items-center px-8 py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-rose-400 transition-colors"
           >
             SIGN IN <ArrowRight className="ml-2 w-4 h-4" />
           </Link>
@@ -31,7 +31,7 @@ export function CartPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center pt-16">
-        <div className="w-12 h-12 border-4 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+        <div className="w-12 h-12 border-4 border-rose-400 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -45,7 +45,7 @@ export function CartPage() {
           <p className="text-gray-400 mb-8">Looks like you haven't added anything yet.</p>
           <Link
             to="/"
-            className="inline-flex items-center px-8 py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-emerald-400 transition-colors"
+            className="inline-flex items-center px-8 py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-rose-400 transition-colors"
           >
             START SHOPPING <ArrowRight className="ml-2 w-4 h-4" />
           </Link>
@@ -90,7 +90,7 @@ export function CartPage() {
                       <div>
                         <Link
                           to={`/product/${product.slug}`}
-                          className="text-[11px] font-bold tracking-[0.1em] text-white uppercase hover:text-emerald-400 transition-colors"
+                          className="text-[11px] font-bold tracking-[0.1em] text-white uppercase hover:text-rose-400 transition-colors"
                         >
                           {product.name}
                         </Link>
@@ -141,7 +141,7 @@ export function CartPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-400">Shipping</span>
-                  <span className={`font-medium ${shipping === 0 ? 'text-emerald-400' : 'text-white'}`}>
+                  <span className={`font-medium ${shipping === 0 ? 'text-rose-400' : 'text-white'}`}>
                     {shipping === 0 ? 'FREE' : formatPrice(shipping)}
                   </span>
                 </div>
@@ -159,14 +159,14 @@ export function CartPage() {
               </div>
 
               {subtotal < FREE_SHIPPING_THRESHOLD && (
-                <p className="mt-4 text-xs text-emerald-400 text-center">
+                <p className="mt-4 text-xs text-rose-400 text-center">
                   Add {formatPrice(FREE_SHIPPING_THRESHOLD - subtotal)} more for free shipping!
                 </p>
               )}
 
               <Link
                 to="/checkout"
-                className="mt-6 block w-full py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase text-center hover:bg-emerald-400 transition-colors"
+                className="mt-6 block w-full py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase text-center hover:bg-rose-400 transition-colors"
               >
                 CHECKOUT
               </Link>

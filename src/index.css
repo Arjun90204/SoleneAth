@@ -12,7 +12,7 @@
   }
 
   ::selection {
-    @apply bg-emerald-400 text-black;
+    @apply bg-rose-400 text-black;
   }
 
   ::-webkit-scrollbar {
@@ -45,7 +45,7 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-rose-400 to-rose-600 bg-clip-text text-transparent;
   }
 
   .animate-fade-in {

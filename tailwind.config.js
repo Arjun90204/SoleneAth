@@ -4,19 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Shortcut: kept the "rose" key separate AND overrode "emerald" to
-        // the same values, since most existing components still reference
-        // emerald-* classes. This avoids a mass find/replace across every
-        // file right now. Before final launch, do the find/replace properly
-        // (emerald-400 -> rose-400 etc.) so the codebase reads cleanly —
-        // added to DEFERRED_TODO.md.
-        emerald: {
-          300: '#e8b4bc',
-          400: '#d88c9a',
-          500: '#c26b7a',
-          600: '#a8505f',
-          700: '#8a3d4a',
-        },
+        // Solène's brand accent — overrides Tailwind's default rose shades.
         rose: {
           300: '#e8b4bc',
           400: '#d88c9a',

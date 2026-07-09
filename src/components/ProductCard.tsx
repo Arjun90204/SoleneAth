@@ -33,7 +33,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Discount Badge */}
         {discount && (
           <div className="absolute top-3 left-3">
-            <span className="inline-block bg-emerald-400 text-black text-[10px] font-bold tracking-wider px-2 py-1 rounded-sm">
+            <span className="inline-block bg-rose-400 text-black text-[10px] font-bold tracking-wider px-2 py-1 rounded-sm">
               -{discount}%
             </span>
           </div>
@@ -53,7 +53,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="p-3">
             <button
               onClick={(e) => e.preventDefault()}
-              className="w-full py-3 bg-white text-black text-[11px] font-bold tracking-[0.15em] hover:bg-emerald-400 transition-colors flex items-center justify-center gap-2"
+              className="w-full py-3 bg-white text-black text-[11px] font-bold tracking-[0.15em] hover:bg-rose-400 transition-colors flex items-center justify-center gap-2"
             >
               <Plus className="w-4 h-4" />
               QUICK ADD
@@ -73,7 +73,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
       {/* Product Info */}
       <div className="mt-3 pb-4">
-        <h3 className="text-[11px] font-bold tracking-[0.1em] text-white uppercase group-hover:text-emerald-400 transition-colors">
+        <h3 className="text-[11px] font-bold tracking-[0.1em] text-white uppercase group-hover:text-rose-400 transition-colors">
           {product.name}
         </h3>
 

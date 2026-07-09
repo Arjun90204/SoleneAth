@@ -39,12 +39,12 @@ export function HomePage() {
         <div className="relative h-full flex flex-col justify-end pb-20 md:pb-32 px-4 md:px-8">
           <div className="max-w-[1400px] mx-auto w-full">
             <div className="max-w-xl">
-              <span className="inline-block text-[11px] font-bold tracking-[0.3em] text-emerald-400 mb-4 uppercase">
+              <span className="inline-block text-[11px] font-bold tracking-[0.3em] text-rose-400 mb-4 uppercase">
                 NEW COLLECTION
               </span>
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tight mb-6">
                 SCULPT<br/>YOUR<br/>
-                <span className="text-emerald-400">STRENGTH</span>
+                <span className="text-rose-400">STRENGTH</span>
               </h1>
               <p className="text-base md:text-lg text-gray-300 max-w-md mb-8">
                 Premium athleisure engineered for peak performance. Elevate every rep, every stride, every moment.
@@ -52,7 +52,7 @@ export function HomePage() {
               <div className="flex flex-wrap gap-4">
                 <Link
                   to="/category/leggings"
-                  className="inline-flex items-center px-8 py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] hover:bg-emerald-400 transition-colors group"
+                  className="inline-flex items-center px-8 py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] hover:bg-rose-400 transition-colors group"
                 >
                   SHOP BESTSELLERS
                   <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -90,7 +90,7 @@ export function HomePage() {
               <Link
                 key={cat.slug}
                 to={`/category/${cat.slug}`}
-                className="flex-shrink-0 text-[11px] font-bold tracking-[0.2em] text-white hover:text-emerald-400 transition-colors whitespace-nowrap"
+                className="flex-shrink-0 text-[11px] font-bold tracking-[0.2em] text-white hover:text-rose-400 transition-colors whitespace-nowrap"
               >
                 {cat.name}
               </Link>
@@ -109,13 +109,13 @@ export function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
           <div className="absolute bottom-8 left-8 right-8">
-            <span className="inline-block text-[10px] font-bold tracking-[0.3em] text-emerald-400 mb-2">NEW</span>
+            <span className="inline-block text-[10px] font-bold tracking-[0.3em] text-rose-400 mb-2">NEW</span>
             <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-4">
               EVERYDAY SEAMLESS<br/>RESTOCK
             </h2>
             <Link
               to="/category/leggings"
-              className="inline-flex items-center text-[11px] font-bold tracking-[0.15em] text-white hover:text-emerald-400 transition-colors"
+              className="inline-flex items-center text-[11px] font-bold tracking-[0.15em] text-white hover:text-rose-400 transition-colors"
             >
               SHOP NOW <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
@@ -129,13 +129,13 @@ export function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
           <div className="absolute bottom-8 left-8 right-8">
-            <span className="inline-block text-[10px] font-bold tracking-[0.3em] text-emerald-400 mb-2">BESTSELLERS</span>
+            <span className="inline-block text-[10px] font-bold tracking-[0.3em] text-rose-400 mb-2">BESTSELLERS</span>
             <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-4">
               POWER<br/>COLLECTION
             </h2>
             <Link
               to="/category/sports-bras"
-              className="inline-flex items-center text-[11px] font-bold tracking-[0.15em] text-white hover:text-emerald-400 transition-colors"
+              className="inline-flex items-center text-[11px] font-bold tracking-[0.15em] text-white hover:text-rose-400 transition-colors"
             >
               SHOP NOW <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
@@ -148,12 +148,12 @@ export function HomePage() {
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <span className="text-[10px] font-bold tracking-[0.3em] text-emerald-400 uppercase mb-2 block">TOP PICKS</span>
+              <span className="text-[10px] font-bold tracking-[0.3em] text-rose-400 uppercase mb-2 block">TOP PICKS</span>
               <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">BESTSELLERS</h2>
             </div>
             <Link
               to="/category/leggings"
-              className="hidden md:inline-flex items-center text-[11px] font-bold tracking-[0.15em] text-white hover:text-emerald-400 transition-colors"
+              className="hidden md:inline-flex items-center text-[11px] font-bold tracking-[0.15em] text-white hover:text-rose-400 transition-colors"
             >
               VIEW ALL <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
@@ -182,7 +182,7 @@ export function HomePage() {
           <div className="mt-10 text-center md:hidden">
             <Link
               to="/category/leggings"
-              className="inline-flex items-center text-[11px] font-bold tracking-[0.15em] text-white hover:text-emerald-400 transition-colors"
+              className="inline-flex items-center text-[11px] font-bold tracking-[0.15em] text-white hover:text-rose-400 transition-colors"
             >
               VIEW ALL <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
@@ -201,11 +201,11 @@ export function HomePage() {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center max-w-xl px-4">
             <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">
-              TRAIN<br/><span className="text-emerald-400">WITHOUT</span><br/>LIMITS
+              TRAIN<br/><span className="text-rose-400">WITHOUT</span><br/>LIMITS
             </h2>
             <Link
               to="/category/leggings"
-              className="inline-flex items-center px-10 py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] hover:bg-emerald-400 transition-colors"
+              className="inline-flex items-center px-10 py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] hover:bg-rose-400 transition-colors"
             >
               SHOP COLLECTION <ArrowRight className="ml-3 w-4 h-4" />
             </Link>
@@ -217,7 +217,7 @@ export function HomePage() {
       <section className="py-20 px-4 md:px-8 bg-black">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[10px] font-bold tracking-[0.3em] text-emerald-400 uppercase mb-2 block">EXPLORE</span>
+            <span className="text-[10px] font-bold tracking-[0.3em] text-rose-400 uppercase mb-2 block">EXPLORE</span>
             <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">SHOP BY CATEGORY</h2>
           </div>
 
@@ -238,7 +238,7 @@ export function HomePage() {
                   <h3 className="text-xl md:text-2xl font-black text-white tracking-tight mb-2">
                     {category.name.toUpperCase()}
                   </h3>
-                  <span className="inline-flex items-center text-[11px] font-bold tracking-[0.15em] text-emerald-400 group-hover:translate-x-2 transition-transform">
+                  <span className="inline-flex items-center text-[11px] font-bold tracking-[0.15em] text-rose-400 group-hover:translate-x-2 transition-transform">
                     Shop <ArrowRight className="ml-2 w-4 h-4" />
                   </span>
                 </div>
@@ -270,7 +270,7 @@ export function HomePage() {
       <section className="py-20 px-4 md:px-8 bg-black text-center">
         <div className="max-w-xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-4">
-            JOIN THE<br/><span className="text-emerald-400">COMMUNITY</span>
+            JOIN THE<br/><span className="text-rose-400">COMMUNITY</span>
           </h2>
           <p className="text-gray-400 mb-8">
             Subscribe for 15% off your first order and exclusive access to new drops.
@@ -279,11 +279,11 @@ export function HomePage() {
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400 transition-colors"
+              className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-rose-400 transition-colors"
             />
             <button
               type="submit"
-              className="px-6 py-3 bg-white text-black text-[11px] font-bold tracking-[0.15em] hover:bg-emerald-400 transition-colors"
+              className="px-6 py-3 bg-white text-black text-[11px] font-bold tracking-[0.15em] hover:bg-rose-400 transition-colors"
             >
               SUBSCRIBE
             </button>
