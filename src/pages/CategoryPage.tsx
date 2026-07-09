@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { supabase, Product, Category } from '../lib/supabase'
 import { ProductCard } from '../components/ProductCard'
-import { ChevronDown, Filter, ArrowRight } from 'lucide-react'
+import { ChevronDown, Filter } from 'lucide-react'
 
 export function CategoryPage() {
   const { slug } = useParams<{ slug: string }>()

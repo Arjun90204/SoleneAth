@@ -6,7 +6,7 @@ interface AuthContextType {
   user: User | null
   session: Session | null
   loading: boolean
-  signUp: (email: string, password: string) => Promise<{ error: Error | null }>
+  signUp: (email: string, password: string, phone: string, firstName: string, lastName: string) => Promise<{ error: Error | null }>
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>
   signOut: () => Promise<void>
 }
@@ -34,19 +34,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => subscription.unsubscribe()
   }, [])
 
-  const signUp = async (email: string, password: string) => {
+  // This is the capture point for your signup tracker (email + phone).
+  // Phone/name are passed as auth signup metadata (not inserted client-side)
+  // because a client-side insert runs under RLS as the CURRENT session —
+  // which doesn't exist yet if email confirmation is required. A DB trigger
+  // (see supabase/migrations/20260709010000_profile_trigger.sql) reads this
+  // metadata off auth.users and writes the profiles row server-side,
+  // regardless of session/confirmation timing. Postgres stays the source
+  // of truth; a future Edge Function can mirror profiles into a live
+  // Google Sheet (see DEFERRED_TODO.md) without changing this contract.
+  const signUp = async (email: string, password: string, phone: string, firstName: string, lastName: string) => {
     const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          phone,
+          first_name: firstName,
+          last_name: lastName,
+        },
+      },
     })
     return { error }
   }
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
     return { error }
   }
 

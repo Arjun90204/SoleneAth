@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, ShoppingBag, User, Search, ChevronDown } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
@@ -8,16 +8,27 @@ import { FREE_SHIPPING_THRESHOLD } from '../lib/utils'
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [headerHeight, setHeaderHeight] = useState(112)
+  const headerWrapRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
   const { user, signOut } = useAuth()
   const { totalItems } = useCart()
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
+    const handleScroll = () => setIsScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Fix: measure real header height instead of hardcoding it, so the
+  // mobile menu never overlaps or leaves a gap if the announcement bar wraps.
+  useEffect(() => {
+    function updateHeight() {
+      if (headerWrapRef.current) setHeaderHeight(headerWrapRef.current.offsetHeight)
+    }
+    updateHeight()
+    window.addEventListener('resize', updateHeight)
+    return () => window.removeEventListener('resize', updateHeight)
   }, [])
 
   useEffect(() => {
@@ -26,103 +37,99 @@ export function Header() {
 
   const navLinks = [
     { name: 'NEW ARRIVALS', path: '/category/leggings', highlight: true },
-    { name: 'WOMEN', path: '/category/leggings', children: [
+    { name: 'ACTIVE', path: '/category/leggings', children: [
       { name: 'Leggings', path: '/category/leggings' },
       { name: 'Sports Bras', path: '/category/sports-bras' },
       { name: 'Shorts', path: '/category/shorts' },
       { name: 'Tops', path: '/category/tanks-tops' },
     ]},
-    { name: 'MEN', path: '/category/shorts', children: [
-      { name: 'Shorts', path: '/category/shorts' },
-      { name: 'Hoodies', path: '/category/hoodies-jackets' },
-      { name: 'Accessories', path: '/category/accessories' },
-    ]},
+    { name: 'OFFICEWEAR', path: '/category/tanks-tops' },
     { name: 'ACCESSORIES', path: '/category/accessories' },
     { name: 'SALE', path: '/category/leggings', highlight: true },
   ]
 
   return (
     <>
-      {/* Announcement Bar */}
-      <div className="bg-black text-white text-center py-2.5 px-4 border-b border-white/10">
-        <p className="text-[11px] tracking-[0.2em] font-medium uppercase">
-          FREE SHIPPING ON ORDERS ABOVE ₹{FREE_SHIPPING_THRESHOLD.toLocaleString('en-IN')} |{' '}
-          <Link to="/signup" className="underline hover:no-underline text-emerald-400">
-            SIGN UP FOR 15% OFF
-          </Link>
-        </p>
-      </div>
-
-      {/* Main Header */}
-      <header className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-black shadow-lg' : 'bg-black/95 backdrop-blur-sm'
-      }`}>
-        <div className="max-w-[1920px] mx-auto">
-          <div className="flex items-center justify-between h-16 px-4 lg:px-8">
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 -ml-2 text-white hover:text-gray-300 transition-colors"
-            >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-
-            {/* Logo */}
-            <Link to="/" className="flex-1 lg:flex-none text-center lg:text-left">
-              <span className="text-2xl lg:text-3xl font-black tracking-[0.15em] text-white">
-                VELOUR
-                <span className="text-emerald-400">FLEX</span>
-              </span>
+      <div ref={headerWrapRef}>
+        {/* Announcement Bar */}
+        <div className="bg-black text-white text-center py-2.5 px-4 border-b border-white/10">
+          <p className="text-[11px] tracking-[0.2em] font-medium uppercase">
+            FREE SHIPPING ON ORDERS ABOVE ₹{FREE_SHIPPING_THRESHOLD.toLocaleString('en-IN')} |{' '}
+            <Link to="/signup" className="underline hover:no-underline text-rose-400">
+              SIGN UP FOR 15% OFF
             </Link>
+          </p>
+        </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  className={`text-[11px] font-bold tracking-[0.2em] uppercase relative group flex items-center gap-1 ${
-                    link.highlight ? 'text-emerald-400 hover:text-emerald-300' : 'text-white hover:text-gray-300'
-                  } transition-colors`}
-                >
-                  {link.name}
-                  {link.children && <ChevronDown className="w-3 h-3" />}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-400 transition-all duration-300 group-hover:w-full" />
-                </Link>
-              ))}
-            </nav>
-
-            {/* Right icons */}
-            <div className="flex items-center space-x-1">
-              <button className="p-3 text-white hover:text-gray-300 transition-colors">
-                <Search className="w-5 h-5" />
+        {/* Main Header */}
+        <header className={`sticky top-0 z-50 transition-all duration-300 ${
+          isScrolled ? 'bg-black shadow-lg' : 'bg-black/95 backdrop-blur-sm'
+        }`}>
+          <div className="max-w-[1920px] mx-auto">
+            <div className="flex items-center justify-between h-16 px-4 lg:px-8">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="lg:hidden p-2 -ml-2 text-white hover:text-gray-300 transition-colors"
+              >
+                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
-              <Link to="/account" className="p-3 text-white hover:text-gray-300 transition-colors">
-                <User className="w-5 h-5" />
+
+              <Link to="/" className="flex-1 lg:flex-none text-center lg:text-left">
+                <span className="text-2xl lg:text-3xl font-black tracking-[0.15em] text-white">
+                  SOLÈNE
+                </span>
               </Link>
-              <Link to="/cart" className="p-3 text-white hover:text-gray-300 transition-colors relative">
-                <ShoppingBag className="w-5 h-5" />
-                {totalItems > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-emerald-400 text-black text-[10px] rounded-full flex items-center justify-center font-bold">
-                    {totalItems}
-                  </span>
-                )}
-              </Link>
+
+              <nav className="hidden lg:flex items-center space-x-8">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className={`text-[11px] font-bold tracking-[0.2em] uppercase relative group flex items-center gap-1 ${
+                      link.highlight ? 'text-rose-400 hover:text-rose-300' : 'text-white hover:text-gray-300'
+                    } transition-colors`}
+                  >
+                    {link.name}
+                    {link.children && <ChevronDown className="w-3 h-3" />}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-rose-400 transition-all duration-300 group-hover:w-full" />
+                  </Link>
+                ))}
+              </nav>
+
+              <div className="flex items-center space-x-1">
+                <button className="p-3 text-white hover:text-gray-300 transition-colors">
+                  <Search className="w-5 h-5" />
+                </button>
+                <Link to="/account" className="p-3 text-white hover:text-gray-300 transition-colors">
+                  <User className="w-5 h-5" />
+                </Link>
+                <Link to="/cart" className="p-3 text-white hover:text-gray-300 transition-colors relative">
+                  <ShoppingBag className="w-5 h-5" />
+                  {totalItems > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-rose-400 text-black text-[10px] rounded-full flex items-center justify-center font-bold">
+                      {totalItems}
+                    </span>
+                  )}
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation — offset now derived from measured header height */}
       {isMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-[108px] bg-black z-40 overflow-y-auto">
+        <div
+          className="lg:hidden fixed inset-x-0 bottom-0 bg-black z-40 overflow-y-auto"
+          style={{ top: headerHeight }}
+        >
           <nav className="flex flex-col py-4">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
                 className={`px-6 py-4 text-sm font-bold tracking-[0.15em] text-white hover:bg-white/10 transition-colors ${
-                  link.highlight ? 'text-emerald-400' : ''
+                  link.highlight ? 'text-rose-400' : ''
                 }`}
               >
                 {link.name}
@@ -131,16 +138,10 @@ export function Header() {
             <hr className="my-4 border-white/10" />
             {user ? (
               <>
-                <Link
-                  to="/account"
-                  className="px-6 py-4 text-sm font-bold tracking-[0.15em] text-white hover:bg-white/10 transition-colors"
-                >
+                <Link to="/account" className="px-6 py-4 text-sm font-bold tracking-[0.15em] text-white hover:bg-white/10 transition-colors">
                   MY ACCOUNT
                 </Link>
-                <Link
-                  to="/orders"
-                  className="px-6 py-4 text-sm font-bold tracking-[0.15em] text-white hover:bg-white/10 transition-colors"
-                >
+                <Link to="/orders" className="px-6 py-4 text-sm font-bold tracking-[0.15em] text-white hover:bg-white/10 transition-colors">
                   MY ORDERS
                 </Link>
                 <button
@@ -151,10 +152,7 @@ export function Header() {
                 </button>
               </>
             ) : (
-              <Link
-                to="/login"
-                className="px-6 py-4 text-sm font-bold tracking-[0.15em] text-white hover:bg-white/10 transition-colors"
-              >
+              <Link to="/login" className="px-6 py-4 text-sm font-bold tracking-[0.15em] text-white hover:bg-white/10 transition-colors">
                 SIGN IN / JOIN
               </Link>
             )}

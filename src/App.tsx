@@ -12,6 +12,7 @@ import { AccountPage } from './pages/AccountPage'
 import { CheckoutPage } from './pages/CheckoutPage'
 import { OrderConfirmationPage } from './pages/OrderConfirmationPage'
 import { OrdersPage } from './pages/OrdersPage'
+import { AdminPage } from './pages/AdminPage'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/orders" element={<OrdersPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/checkout/success" element={<OrderConfirmationPage />} />
+                <Route path="/admin" element={<AdminPage />} />
               </Routes>
             </main>
             <Footer />

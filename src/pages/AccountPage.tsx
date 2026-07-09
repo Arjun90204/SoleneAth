@@ -41,7 +41,7 @@ export function AccountPage() {
   if (authLoading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center pt-16">
-        <div className="w-12 h-12 border-4 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+        <div className="w-12 h-12 border-4 border-rose-400 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -52,12 +52,11 @@ export function AccountPage() {
         <h1 className="text-3xl font-black text-white tracking-tight uppercase mb-8">My Account</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar */}
           <div className="lg:col-span-1">
             <div className="border border-white/10 p-6">
               <div className="flex items-center gap-4 mb-6 pb-6 border-b border-white/10">
-                <div className="w-14 h-14 bg-emerald-400/10 rounded-full flex items-center justify-center">
-                  <User className="w-7 h-7 text-emerald-400" />
+                <div className="w-14 h-14 bg-rose-400/10 rounded-full flex items-center justify-center">
+                  <User className="w-7 h-7 text-rose-400" />
                 </div>
                 <div>
                   <p className="font-bold text-white">{user?.email?.split('@')[0]}</p>
@@ -65,20 +64,14 @@ export function AccountPage() {
                 </div>
               </div>
               <nav className="space-y-1">
-                <Link
-                  to="/account"
-                  className="flex items-center justify-between p-3 bg-white/5 text-white"
-                >
+                <Link to="/account" className="flex items-center justify-between p-3 bg-white/5 text-white">
                   <span className="flex items-center gap-3">
                     <User className="w-4 h-4" />
                     <span className="text-[11px] font-bold tracking-[0.15em] uppercase">My Account</span>
                   </span>
                   <ChevronRight className="w-4 h-4" />
                 </Link>
-                <Link
-                  to="/orders"
-                  className="flex items-center justify-between p-3 text-gray-400 hover:bg-white/5 hover:text-white transition-colors"
-                >
+                <Link to="/orders" className="flex items-center justify-between p-3 text-gray-400 hover:bg-white/5 hover:text-white transition-colors">
                   <span className="flex items-center gap-3">
                     <Package className="w-4 h-4" />
                     <span className="text-[11px] font-bold tracking-[0.15em] uppercase">Orders</span>
@@ -98,7 +91,6 @@ export function AccountPage() {
             </div>
           </div>
 
-          {/* Main content */}
           <div className="lg:col-span-3">
             <div className="border border-white/10 p-6">
               <h2 className="text-[11px] font-bold tracking-[0.2em] text-white uppercase mb-6">Account Details</h2>
@@ -116,22 +108,25 @@ export function AccountPage() {
 
               {ordersLoading ? (
                 <div className="mt-8 pt-6 border-t border-white/10 flex justify-center">
-                  <div className="w-8 h-8 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+                  <div className="w-8 h-8 border-2 border-rose-400 border-t-transparent rounded-full animate-spin" />
                 </div>
               ) : orders.length > 0 ? (
                 <div className="mt-8 pt-6 border-t border-white/10">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-[11px] font-bold tracking-[0.2em] text-white uppercase">Recent Orders</h3>
-                    <Link to="/orders" className="text-emerald-400 text-[11px] font-bold tracking-[0.15em] uppercase hover:text-emerald-300 transition-colors">
+                    <Link to="/orders" className="text-rose-400 text-[11px] font-bold tracking-[0.15em] uppercase hover:text-rose-300 transition-colors">
                       View All
                     </Link>
                   </div>
                   <div className="space-y-4">
+                    {/* FIX: was linking to /orders/${order.id}, a route that
+                        doesn't exist yet (404). Points to the /orders list
+                        for now — real per-order detail page is deferred. */}
                     {orders.slice(0, 3).map((order) => (
                       <Link
                         key={order.id}
-                        to={`/orders/${order.id}`}
-                        className="block p-4 border border-white/10 hover:border-emerald-400/50 transition-colors"
+                        to="/orders"
+                        className="block p-4 border border-white/10 hover:border-rose-400/50 transition-colors"
                       >
                         <div className="flex justify-between items-center">
                           <div>
@@ -142,7 +137,7 @@ export function AccountPage() {
                           </div>
                           <div className="text-right">
                             <p className="font-bold text-white">{formatPrice(order.total)}</p>
-                            <p className="text-[11px] font-bold tracking-[0.1em] text-emerald-400 uppercase">{order.status}</p>
+                            <p className="text-[11px] font-bold tracking-[0.1em] text-rose-400 uppercase">{order.status}</p>
                           </div>
                         </div>
                       </Link>
