@@ -69,8 +69,8 @@ export function CategoryPage() {
   })
 
   return (
-    <div className="min-h-screen bg-black pt-16">
-      {/* Category Hero */}
+    <div className="min-h-screen bg-white pt-16">
+      {/* Category Hero — text sits on a photo, stays white regardless of page theme */}
       <div className="relative h-48 md:h-64 overflow-hidden">
         <img
           src={category?.image_url}
@@ -80,7 +80,7 @@ export function CategoryPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black" />
         <div className="absolute inset-0 flex items-end pb-8 px-4 md:px-8">
           <div className="max-w-[1400px] mx-auto w-full">
-            <nav className="flex items-center gap-2 text-[11px] text-gray-400 mb-2">
+            <nav className="flex items-center gap-2 text-[11px] text-gray-300 mb-2">
               <Link to="/" className="hover:text-white transition-colors">Home</Link>
               <span>/</span>
               <span className="text-white">{category?.name}</span>
@@ -93,54 +93,54 @@ export function CategoryPage() {
       </div>
 
       {/* Toolbar */}
-      <div className="sticky top-16 z-30 bg-black border-b border-white/10 py-4 px-4 md:px-8">
+      <div className="sticky top-16 z-30 bg-white border-b border-black/10 py-4 px-4 md:px-8">
         <div className="max-w-[1400px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setShowFilters(!showFilters)}
               className={`flex items-center gap-2 px-4 py-2 border text-[11px] font-bold tracking-[0.15em] uppercase transition-colors ${
-                showFilters ? 'bg-white text-black border-white' : 'border-white/20 text-white hover:border-white'
+                showFilters ? 'bg-black text-white border-black' : 'border-black/20 text-black hover:border-black'
               }`}
             >
               <Filter className="w-4 h-4" />
               FILTER
               {(selectedColors.length + selectedSizes.length) > 0 && (
-                <span className="w-5 h-5 bg-rose-400 text-black rounded-full flex items-center justify-center text-[10px]">
+                <span className="w-5 h-5 bg-teal-400 text-black rounded-full flex items-center justify-center text-[10px]">
                   {selectedColors.length + selectedSizes.length}
                 </span>
               )}
             </button>
-            <span className="text-sm text-gray-400">{filteredProducts.length} products</span>
+            <span className="text-sm text-gray-500">{filteredProducts.length} products</span>
           </div>
 
           <div className="relative">
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="appearance-none bg-transparent border border-white/20 text-white text-[11px] font-bold tracking-[0.15em] uppercase px-4 py-2 pr-10 focus:outline-none focus:border-white cursor-pointer"
+              className="appearance-none bg-transparent border border-black/20 text-black text-[11px] font-bold tracking-[0.15em] uppercase px-4 py-2 pr-10 focus:outline-none focus:border-black cursor-pointer"
             >
-              <option value="featured" className="bg-black">Featured</option>
-              <option value="price-asc" className="bg-black">Price: Low to High</option>
-              <option value="price-desc" className="bg-black">Price: High to Low</option>
+              <option value="featured" className="bg-white">Featured</option>
+              <option value="price-asc" className="bg-white">Price: Low to High</option>
+              <option value="price-desc" className="bg-white">Price: High to Low</option>
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white pointer-events-none" />
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-black pointer-events-none" />
           </div>
         </div>
       </div>
 
       {/* Filters Panel */}
       {showFilters && (
-        <div className="bg-black border-b border-white/10 py-6 px-4 md:px-8">
+        <div className="bg-white border-b border-black/10 py-6 px-4 md:px-8">
           <div className="max-w-[1400px] mx-auto">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-[11px] font-bold tracking-[0.2em] text-white uppercase">Filters</h3>
+              <h3 className="text-[11px] font-bold tracking-[0.2em] text-black uppercase">Filters</h3>
               {(selectedColors.length + selectedSizes.length) > 0 && (
                 <button
                   onClick={() => {
                     setSelectedColors([])
                     setSelectedSizes([])
                   }}
-                  className="text-[11px] text-rose-400 hover:text-rose-300 transition-colors"
+                  className="text-[11px] text-teal-600 hover:text-teal-700 transition-colors"
                 >
                   Clear all
                 </button>
@@ -150,7 +150,7 @@ export function CategoryPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Colors */}
               <div>
-                <h4 className="text-[11px] font-bold tracking-[0.2em] text-gray-400 uppercase mb-4">Color</h4>
+                <h4 className="text-[11px] font-bold tracking-[0.2em] text-gray-500 uppercase mb-4">Color</h4>
                 <div className="flex flex-wrap gap-2">
                   {getAllColors().map(color => (
                     <button
@@ -162,11 +162,11 @@ export function CategoryPage() {
                       }}
                       className={`flex items-center gap-2 px-3 py-2 border text-[10px] font-medium uppercase transition-colors ${
                         selectedColors.includes(color)
-                          ? 'border-rose-400 bg-rose-400/10 text-rose-400'
-                          : 'border-white/20 text-gray-400 hover:border-white/40'
+                          ? 'border-teal-600 bg-teal-600/10 text-teal-600'
+                          : 'border-black/20 text-gray-500 hover:border-black/40'
                       }`}
                     >
-                      <span className="w-4 h-4 rounded-full border border-white/20" style={{ backgroundColor: color.toLowerCase() }} />
+                      <span className="w-4 h-4 rounded-full border border-black/20" style={{ backgroundColor: color.toLowerCase() }} />
                       {color}
                     </button>
                   ))}
@@ -175,7 +175,7 @@ export function CategoryPage() {
 
               {/* Sizes */}
               <div>
-                <h4 className="text-[11px] font-bold tracking-[0.2em] text-gray-400 uppercase mb-4">Size</h4>
+                <h4 className="text-[11px] font-bold tracking-[0.2em] text-gray-500 uppercase mb-4">Size</h4>
                 <div className="flex flex-wrap gap-2">
                   {getAllSizes().map(size => (
                     <button
@@ -187,8 +187,8 @@ export function CategoryPage() {
                       }}
                       className={`w-12 h-10 border text-[11px] font-bold transition-colors ${
                         selectedSizes.includes(size)
-                          ? 'border-rose-400 bg-rose-400/10 text-rose-400'
-                          : 'border-white/20 text-gray-400 hover:border-white/40'
+                          ? 'border-teal-600 bg-teal-600/10 text-teal-600'
+                          : 'border-black/20 text-gray-500 hover:border-black/40'
                       }`}
                     >
                       {size}
@@ -208,10 +208,10 @@ export function CategoryPage() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
               {[...Array(8)].map((_, i) => (
                 <div key={i} className="animate-pulse">
-                  <div className="bg-gray-800 aspect-[3/4] rounded" />
+                  <div className="bg-gray-200 aspect-[3/4] rounded" />
                   <div className="mt-4 space-y-2">
-                    <div className="h-3 bg-gray-800 rounded w-3/4" />
-                    <div className="h-3 bg-gray-800 rounded w-1/2" />
+                    <div className="h-3 bg-gray-200 rounded w-3/4" />
+                    <div className="h-3 bg-gray-200 rounded w-1/2" />
                   </div>
                 </div>
               ))}
@@ -224,13 +224,13 @@ export function CategoryPage() {
             </div>
           ) : (
             <div className="text-center py-20">
-              <p className="text-gray-400 mb-4">No products match your filters.</p>
+              <p className="text-gray-500 mb-4">No products match your filters.</p>
               <button
                 onClick={() => {
                   setSelectedColors([])
                   setSelectedSizes([])
                 }}
-                className="text-rose-400 hover:text-rose-300 text-sm font-medium"
+                className="text-teal-600 hover:text-teal-700 text-sm font-medium"
               >
                 Clear filters
               </button>

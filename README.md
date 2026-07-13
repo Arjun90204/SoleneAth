@@ -1,3 +1,3 @@
-# Solène
+# Soléan
 
 Athleisure and active officewear for women, built in India.

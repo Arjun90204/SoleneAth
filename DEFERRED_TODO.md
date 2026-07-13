@@ -1,4 +1,4 @@
-# SOLENE — Deferred Items (MUST resolve before real launch)
+# SOLÉAN — Deferred Items (MUST resolve before real launch)
 
 This file exists so nothing gets silently forgotten while we build the shell.
 Every item below is currently a placeholder, mock, or missing entirely.
@@ -24,7 +24,7 @@ Every item below is currently a placeholder, mock, or missing entirely.
 - [ ] **Legal pages**: Terms of Service, Privacy Policy (DPDP Act 2023
       compliant), Refund/Cancellation Policy, Shipping Policy are all just
       footer links to `#` right now. Needs real content + lawyer review.
-- [ ] **Trademark check**: confirm "Solene" isn't already registered for
+- [ ] **Trademark check**: confirm "Soléan" isn't already registered for
       apparel in India (Trademark Registry search).
 
 ## 🟠 IMPORTANT — will hurt badly if skipped
@@ -40,7 +40,6 @@ Every item below is currently a placeholder, mock, or missing entirely.
 - [ ] **Coupon codes**: signup banner promises "15% off first order" — no
       discount code system exists to redeem it.
 - [ ] **WhatsApp/SMS order updates**: email-only right now.
-- [ ] **Search**: header search icon is non-functional.
 - [ ] **Size guide**: no size chart component anywhere on product pages.
 - [ ] **Error/uptime monitoring**: no Sentry or equivalent wired in.
 - [ ] **Staging environment**: currently one Supabase project for everything —
@@ -72,6 +71,20 @@ Every item below is currently a placeholder, mock, or missing entirely.
   confirm this is correct for your product HSN codes before launch)
 - Admin shell (`/admin`) — verified showing all orders across users when
   `is_admin = true`
+- Product search (`/search?q=`) — queries name + description against
+  Postgres, wired to the header's search icon
+
+## Rebrand (2026-07-13): Soléan, white/teal theme
+
+Renamed from Solène to **Soléan** across every user-facing string (logos,
+page title, meta tags, README/SETUP docs) and flipped the entire visual
+theme from black-background/rose-accent to a white-background/teal-accent
+look (`tailwind.config.js`'s `rose` key was replaced with a `teal` ramp).
+The black announcement bar at the very top and white-text-on-photo
+treatments (hero images, category card overlays) were kept deliberately —
+those sit on dark backgrounds independent of the page theme. If you bring
+on a designer later, flag this as the current baseline so they don't
+"fix" the announcement bar back to white by mistake.
 
 ## Bugs found and fixed during shell verification (2026-07-09)
 

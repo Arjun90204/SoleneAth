@@ -88,16 +88,16 @@ export function ProductPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center pt-16">
-        <div className="w-12 h-12 border-4 border-rose-400 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-white flex items-center justify-center pt-16">
+        <div className="w-12 h-12 border-4 border-teal-600 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center pt-16">
-        <p className="text-gray-400">Product not found</p>
+      <div className="min-h-screen bg-white flex items-center justify-center pt-16">
+        <p className="text-gray-500">Product not found</p>
       </div>
     )
   }
@@ -121,17 +121,17 @@ export function ProductPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black pt-16">
-      <div className="border-b border-white/10 py-4 px-4 md:px-8">
+    <div className="min-h-screen bg-white pt-16">
+      <div className="border-b border-black/10 py-4 px-4 md:px-8">
         <div className="max-w-[1400px] mx-auto">
-          <nav className="flex items-center gap-2 text-[11px] text-gray-400">
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+          <nav className="flex items-center gap-2 text-[11px] text-gray-500">
+            <Link to="/" className="hover:text-black transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <Link to={`/category/${slug?.split('-')[0]}`} className="hover:text-white transition-colors">
+            <Link to={`/category/${slug?.split('-')[0]}`} className="hover:text-black transition-colors">
               {product.name.split(' ')[0]}
             </Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-white">{product.name}</span>
+            <span className="text-black">{product.name}</span>
           </nav>
         </div>
       </div>
@@ -139,14 +139,14 @@ export function ProductPage() {
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           <div className="space-y-4">
-            <div className="relative aspect-[3/4] bg-gray-900 overflow-hidden">
+            <div className="relative aspect-[3/4] bg-gray-100 overflow-hidden">
               <img
                 src={product.images[currentImageIndex] || product.image_url}
                 alt={product.name}
                 className="w-full h-full object-cover object-center"
               />
               {product.compare_at_price && (
-                <span className="absolute top-4 left-4 bg-rose-400 text-black text-[10px] font-bold tracking-[0.1em] px-2 py-1">
+                <span className="absolute top-4 left-4 bg-teal-400 text-black text-[10px] font-bold tracking-[0.1em] px-2 py-1">
                   -{Math.round((1 - product.price / product.compare_at_price) * 100)}%
                 </span>
               )}
@@ -154,14 +154,14 @@ export function ProductPage() {
                 <>
                   <button
                     onClick={() => setCurrentImageIndex(Math.max(0, currentImageIndex - 1))}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 hover:bg-white/20 text-white transition-colors"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/70 hover:bg-white/90 text-black transition-colors"
                     disabled={currentImageIndex === 0}
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => setCurrentImageIndex(Math.min(product.images.length - 1, currentImageIndex + 1))}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 hover:bg-white/20 text-white transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/70 hover:bg-white/90 text-black transition-colors"
                     disabled={currentImageIndex === product.images.length - 1}
                   >
                     <ChevronRight className="w-5 h-5" />
@@ -176,7 +176,7 @@ export function ProductPage() {
                     key={i}
                     onClick={() => setCurrentImageIndex(i)}
                     className={`flex-shrink-0 w-20 h-24 overflow-hidden border-2 transition-colors ${
-                      i === currentImageIndex ? 'border-rose-400' : 'border-transparent hover:border-white/40'
+                      i === currentImageIndex ? 'border-teal-600' : 'border-transparent hover:border-black/20'
                     }`}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
@@ -190,21 +190,21 @@ export function ProductPage() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 {product.featured && (
-                  <span className="inline-block text-[10px] font-bold tracking-[0.2em] text-rose-400 uppercase mb-2">
+                  <span className="inline-block text-[10px] font-bold tracking-[0.2em] text-teal-600 uppercase mb-2">
                     Bestseller
                   </span>
                 )}
-                <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight uppercase">
+                <h1 className="text-2xl md:text-3xl font-black text-black tracking-tight uppercase">
                   {product.name}
                 </h1>
               </div>
-              <button className="p-3 border border-white/20 text-gray-400 hover:text-white hover:border-white transition-colors">
+              <button className="p-3 border border-black/20 text-gray-500 hover:text-black hover:border-black transition-colors">
                 <Heart className="w-5 h-5" />
               </button>
             </div>
 
             <div className="flex items-center gap-4 mt-4">
-              <span className="text-2xl font-bold text-white">{formatPrice(price)}</span>
+              <span className="text-2xl font-bold text-black">{formatPrice(price)}</span>
               {product.compare_at_price && (
                 <span className="text-lg text-gray-500 line-through">{formatPrice(product.compare_at_price)}</span>
               )}
@@ -212,8 +212,8 @@ export function ProductPage() {
 
             <div className="mt-8">
               <div className="flex items-center justify-between mb-3">
-                <label className="text-[11px] font-bold tracking-[0.2em] text-white uppercase">
-                  Color: <span className="text-gray-400 font-normal normal-case">{selectedColor}</span>
+                <label className="text-[11px] font-bold tracking-[0.2em] text-black uppercase">
+                  Color: <span className="text-gray-500 font-normal normal-case">{selectedColor}</span>
                 </label>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -222,7 +222,7 @@ export function ProductPage() {
                     key={color}
                     onClick={() => handleColorSelect(color)}
                     className={`w-10 h-10 rounded-full border-2 transition-all ${
-                      color === selectedColor ? 'ring-2 ring-offset-2 ring-offset-black ring-rose-400 border-rose-400' : 'border-white/20 hover:border-white/40'
+                      color === selectedColor ? 'ring-2 ring-offset-2 ring-offset-white ring-teal-600 border-teal-600' : 'border-black/20 hover:border-black/40'
                     }`}
                     style={{ backgroundColor: color.toLowerCase() }}
                     title={color}
@@ -233,7 +233,7 @@ export function ProductPage() {
 
             <div className="mt-8">
               <div className="flex items-center justify-between mb-3">
-                <label className="text-[11px] font-bold tracking-[0.2em] text-white uppercase">Size</label>
+                <label className="text-[11px] font-bold tracking-[0.2em] text-black uppercase">Size</label>
                 {/* TODO: size guide modal — currently missing entirely, see DEFERRED_TODO.md */}
               </div>
               <div className="flex flex-wrap gap-2">
@@ -246,10 +246,10 @@ export function ProductPage() {
                       disabled={!isAvailable}
                       className={`min-w-[48px] h-12 px-3 border text-[11px] font-bold transition-all ${
                         size === selectedSize
-                          ? 'border-white bg-white text-black'
+                          ? 'border-black bg-black text-white'
                           : isAvailable
-                            ? 'border-white/20 text-white hover:border-white/40'
-                            : 'border-white/10 text-gray-600 cursor-not-allowed line-through'
+                            ? 'border-black/20 text-black hover:border-black/40'
+                            : 'border-black/10 text-gray-400 cursor-not-allowed line-through'
                       }`}
                     >
                       {size}
@@ -263,18 +263,18 @@ export function ProductPage() {
             </div>
 
             <div className="mt-8">
-              <label className="text-[11px] font-bold tracking-[0.2em] text-white uppercase block mb-3">Quantity</label>
-              <div className="flex items-center border border-white/20 w-fit">
+              <label className="text-[11px] font-bold tracking-[0.2em] text-black uppercase block mb-3">Quantity</label>
+              <div className="flex items-center border border-black/20 w-fit">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-12 h-12 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+                  className="w-12 h-12 flex items-center justify-center text-black hover:bg-black/5 transition-colors"
                 >
                   <Minus className="w-4 h-4" />
                 </button>
-                <span className="w-12 text-center text-white font-bold">{quantity}</span>
+                <span className="w-12 text-center text-black font-bold">{quantity}</span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="w-12 h-12 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+                  className="w-12 h-12 flex items-center justify-center text-black hover:bg-black/5 transition-colors"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
@@ -285,48 +285,48 @@ export function ProductPage() {
               <button
                 onClick={handleAddToCart}
                 disabled={!selectedSize || !selectedColor || addingToCart}
-                className="w-full py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-rose-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed relative"
+                className="w-full py-4 bg-black text-white text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-teal-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed relative"
               >
                 {addingToCart ? 'ADDING...' : 'ADD TO BAG'}
               </button>
 
               {showAddedMessage && (
-                <div className="mt-4 p-4 bg-rose-400/10 border border-rose-400/20 flex items-center gap-3 text-rose-400">
+                <div className="mt-4 p-4 bg-teal-600/10 border border-teal-600/20 flex items-center gap-3 text-teal-700">
                   <Check className="w-5 h-5" />
                   <span className="text-sm font-medium">Added to your bag!</span>
                 </div>
               )}
             </div>
 
-            <div className="mt-8 pt-8 border-t border-white/10 space-y-4">
-              <div className="flex items-center gap-3 text-sm text-gray-400">
-                <Truck className="w-5 h-5 text-rose-400" />
+            <div className="mt-8 pt-8 border-t border-black/10 space-y-4">
+              <div className="flex items-center gap-3 text-sm text-gray-500">
+                <Truck className="w-5 h-5 text-teal-600" />
                 <span>Free shipping on orders above ₹{FREE_SHIPPING_THRESHOLD.toLocaleString('en-IN')}</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-gray-400">
-                <RefreshCw className="w-5 h-5 text-rose-400" />
+              <div className="flex items-center gap-3 text-sm text-gray-500">
+                <RefreshCw className="w-5 h-5 text-teal-600" />
                 <span>15-day easy returns</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-gray-400">
-                <Shield className="w-5 h-5 text-rose-400" />
+              <div className="flex items-center gap-3 text-sm text-gray-500">
+                <Shield className="w-5 h-5 text-teal-600" />
                 <span>Secure checkout with Razorpay</span>
               </div>
             </div>
 
-            <div className="mt-8 pt-8 border-t border-white/10">
-              <h3 className="text-[11px] font-bold tracking-[0.2em] text-white uppercase mb-4">Description</h3>
-              <p className="text-gray-400 leading-relaxed">{product.description}</p>
+            <div className="mt-8 pt-8 border-t border-black/10">
+              <h3 className="text-[11px] font-bold tracking-[0.2em] text-black uppercase mb-4">Description</h3>
+              <p className="text-gray-600 leading-relaxed">{product.description}</p>
             </div>
           </div>
         </div>
 
         {relatedProducts.length > 0 && (
-          <div className="mt-20 pt-12 border-t border-white/10">
+          <div className="mt-20 pt-12 border-t border-black/10">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-white tracking-tight uppercase">You May Also Like</h2>
+              <h2 className="text-2xl font-bold text-black tracking-tight uppercase">You May Also Like</h2>
               <Link
                 to={`/category/${product.category_id}`}
-                className="hidden md:flex items-center text-[11px] font-bold tracking-[0.15em] text-white hover:text-rose-400 transition-colors"
+                className="hidden md:flex items-center text-[11px] font-bold tracking-[0.15em] text-black hover:text-teal-600 transition-colors"
               >
                 VIEW ALL <ChevronRight className="ml-1 w-4 h-4" />
               </Link>

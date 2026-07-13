@@ -1,4 +1,4 @@
-# Solène — Shell Setup
+# Soléan — Shell Setup
 
 ## What's in this package
 This is a **patch set**, not a full project — it contains only the files

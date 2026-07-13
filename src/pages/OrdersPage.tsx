@@ -51,25 +51,25 @@ export function OrdersPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center pt-16">
-        <div className="w-12 h-12 border-4 border-rose-400 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-white flex items-center justify-center pt-16">
+        <div className="w-12 h-12 border-4 border-teal-600 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-black pt-16">
+    <div className="min-h-screen bg-white pt-16">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-12">
-        <h1 className="text-3xl font-black text-white tracking-tight uppercase mb-8">My Orders</h1>
+        <h1 className="text-3xl font-black text-black tracking-tight uppercase mb-8">My Orders</h1>
 
         {orders.length === 0 ? (
-          <div className="text-center py-20 border border-white/10">
-            <Package className="w-16 h-16 text-gray-700 mx-auto mb-6" />
-            <h2 className="text-2xl font-black text-white tracking-tight uppercase mb-4">No orders yet</h2>
-            <p className="text-gray-400 mb-8">Looks like you haven't placed any orders.</p>
+          <div className="text-center py-20 border border-black/10">
+            <Package className="w-16 h-16 text-gray-300 mx-auto mb-6" />
+            <h2 className="text-2xl font-black text-black tracking-tight uppercase mb-4">No orders yet</h2>
+            <p className="text-gray-500 mb-8">Looks like you haven't placed any orders.</p>
             <Link
               to="/"
-              className="inline-flex items-center px-8 py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-rose-400 transition-colors"
+              className="inline-flex items-center px-8 py-4 bg-black text-white text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-teal-600 transition-colors"
             >
               START SHOPPING <ChevronRight className="ml-2 w-4 h-4" />
             </Link>
@@ -77,11 +77,11 @@ export function OrdersPage() {
         ) : (
           <div className="space-y-6">
             {orders.map((order) => (
-              <div key={order.id} className="border border-white/10">
+              <div key={order.id} className="border border-black/10">
                 {/* Order Header */}
-                <div className="flex items-center justify-between p-6 border-b border-white/10">
+                <div className="flex items-center justify-between p-6 border-b border-black/10">
                   <div>
-                    <p className="font-bold text-white">{order.order_number}</p>
+                    <p className="font-bold text-black">{order.order_number}</p>
                     <p className="text-sm text-gray-500">
                       {new Date(order.created_at).toLocaleDateString('en-IN', {
                         year: 'numeric',
@@ -92,14 +92,14 @@ export function OrdersPage() {
                   </div>
                   <div className="flex items-center gap-4">
                     <span className={`px-3 py-1 text-[10px] font-bold tracking-[0.1em] uppercase ${
-                      order.status === 'pending' ? 'bg-yellow-400/10 text-yellow-400' :
-                      order.status === 'processing' ? 'bg-blue-400/10 text-blue-400' :
-                      order.status === 'shipped' ? 'bg-purple-400/10 text-purple-400' :
-                      'bg-rose-400/10 text-rose-400'
+                      order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                      order.status === 'processing' ? 'bg-blue-100 text-blue-800' :
+                      order.status === 'shipped' ? 'bg-purple-100 text-purple-800' :
+                      'bg-teal-100 text-teal-800'
                     }`}>
                       {order.status}
                     </span>
-                    <span className="font-bold text-white">{formatPrice(order.total)}</span>
+                    <span className="font-bold text-black">{formatPrice(order.total)}</span>
                   </div>
                 </div>
 
@@ -107,30 +107,30 @@ export function OrdersPage() {
                 <div className="p-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {order.items.map((item) => (
-                      <div key={item.id} className="flex items-center gap-4 p-3 bg-white/5">
-                        <div className="w-16 h-20 bg-gray-800 flex items-center justify-center">
-                          <Package className="w-6 h-6 text-gray-600" />
+                      <div key={item.id} className="flex items-center gap-4 p-3 bg-black/5">
+                        <div className="w-16 h-20 bg-gray-100 flex items-center justify-center">
+                          <Package className="w-6 h-6 text-gray-400" />
                         </div>
                         <div className="flex-1">
-                          <p className="text-[11px] font-bold text-white uppercase tracking-[0.05em]">{item.product_name}</p>
+                          <p className="text-[11px] font-bold text-black uppercase tracking-[0.05em]">{item.product_name}</p>
                           {item.variant_info && (
                             <p className="text-xs text-gray-500 mt-1">
                               {item.variant_info.size} / {item.variant_info.color}
                             </p>
                           )}
                           <p className="text-xs text-gray-500 mt-1">Qty: {item.quantity}</p>
-                          <p className="text-xs text-gray-400 mt-1">{formatPrice(item.price)}</p>
+                          <p className="text-xs text-gray-500 mt-1">{formatPrice(item.price)}</p>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/10">
+                  <div className="flex items-center justify-between mt-6 pt-4 border-t border-black/10">
                     <p className="text-sm text-gray-500">
                       {order.items.length} item{order.items.length !== 1 ? 's' : ''}
                     </p>
                     <p className="text-sm text-gray-500">
-                      Payment: <span className="text-white">{order.payment_status || 'Pending'}</span>
+                      Payment: <span className="text-black">{order.payment_status || 'Pending'}</span>
                     </p>
                   </div>
                 </div>

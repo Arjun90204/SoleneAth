@@ -59,17 +59,17 @@ export function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black flex pt-16">
+    <div className="min-h-screen bg-white flex pt-16">
       <div className="flex-1 flex items-center justify-center p-4 md:p-8">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <Link to="/" className="inline-block mb-6">
-              <span className="text-3xl font-black tracking-[0.15em] text-white">SOLÈNE</span>
+              <span className="text-3xl font-black tracking-[0.15em] text-black">SOLÉAN</span>
             </Link>
-            <h1 className="text-2xl font-black text-white tracking-tight uppercase">
+            <h1 className="text-2xl font-black text-black tracking-tight uppercase">
               {isLogin ? 'Welcome back' : 'Create account'}
             </h1>
-            <p className="text-gray-400 mt-2">
+            <p className="text-gray-500 mt-2">
               {isLogin ? 'Sign in to continue' : 'Join the community'}
             </p>
           </div>
@@ -79,69 +79,69 @@ export function AuthPage() {
               <>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">First Name</label>
+                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">First Name</label>
                     <input
                       type="text"
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                       required
-                      className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors"
                       placeholder="Ananya"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">Last Name</label>
+                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Last Name</label>
                     <input
                       type="text"
                       value={formData.lastName}
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                       required
-                      className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors"
                       placeholder="Sharma"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">Phone Number</label>
+                  <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Phone Number</label>
                   <input
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     required
                     placeholder="+91 98765 43210"
-                    className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors placeholder:text-gray-600"
+                    className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors placeholder:text-gray-400"
                   />
                 </div>
               </>
             )}
 
             <div>
-              <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">Email</label>
+              <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Email</label>
               <input
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
-                className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors"
+                className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors"
                 placeholder="you@example.com"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">Password</label>
+              <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Password</label>
               <div className="relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   required
-                  className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors pr-12"
+                  className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors pr-12"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -150,20 +150,20 @@ export function AuthPage() {
 
             {!isLogin && (
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">Confirm Password</label>
+                <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Confirm Password</label>
                 <input
                   type="password"
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                   required
-                  className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors"
                   placeholder="••••••••"
                 />
               </div>
             )}
 
             {error && (
-              <div className="p-4 border border-red-500/20 bg-red-500/5 text-red-400 text-sm">
+              <div className="p-4 border border-red-300 bg-red-50 text-red-700 text-sm">
                 {error}
               </div>
             )}
@@ -171,29 +171,29 @@ export function AuthPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-rose-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-4 bg-black text-white text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-teal-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'PLEASE WAIT...' : isLogin ? 'SIGN IN' : 'CREATE ACCOUNT'}
             </button>
           </form>
 
           <div className="mt-8 text-center">
-            <p className="text-gray-400">
+            <p className="text-gray-500">
               {isLogin ? "Don't have an account?" : 'Already have an account?'}
               <Link
                 to={isLogin ? '/signup' : '/login'}
-                className="font-bold text-white hover:text-rose-400 ml-2 transition-colors"
+                className="font-bold text-black hover:text-teal-600 ml-2 transition-colors"
               >
                 {isLogin ? 'Sign up' : 'Sign in'}
               </Link>
             </p>
           </div>
 
-          <p className="mt-6 text-center text-xs text-gray-600">
+          <p className="mt-6 text-center text-xs text-gray-500">
             By continuing, you agree to our{' '}
-            <a href="#" className="text-gray-400 hover:text-white">Terms of Service</a>
+            <a href="#" className="text-gray-500 hover:text-black">Terms of Service</a>
             {' '}and{' '}
-            <a href="#" className="text-gray-400 hover:text-white">Privacy Policy</a>
+            <a href="#" className="text-gray-500 hover:text-black">Privacy Policy</a>
           </p>
         </div>
       </div>
@@ -202,7 +202,7 @@ export function AuthPage() {
         <div className="absolute inset-0">
           <img
             src="https://images.pexels.com/photos/9995084/pexels-photo-9995084.jpeg?auto=compress&cs=tinysrgb&w=1200"
-            alt="Solène"
+            alt="Soléan"
             className="w-full h-full object-cover grayscale"
           />
           <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/50 to-black" />
@@ -211,9 +211,9 @@ export function AuthPage() {
           <div className="max-w-md">
             <h2 className="text-5xl font-black text-white tracking-tight mb-4">
               MOVE WITH<br/>
-              <span className="text-rose-400">INTENTION</span>
+              <span className="text-teal-400">INTENTION</span>
             </h2>
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-300 text-lg">
               Athleisure and officewear designed for the woman who does both, well.
             </p>
           </div>

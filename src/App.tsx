@@ -13,6 +13,7 @@ import { CheckoutPage } from './pages/CheckoutPage'
 import { OrderConfirmationPage } from './pages/OrderConfirmationPage'
 import { OrdersPage } from './pages/OrdersPage'
 import { AdminPage } from './pages/AdminPage'
+import { SearchPage } from './pages/SearchPage'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/checkout/success" element={<OrderConfirmationPage />} />
                 <Route path="/admin" element={<AdminPage />} />
+                <Route path="/search" element={<SearchPage />} />
               </Routes>
             </main>
             <Footer />

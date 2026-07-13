@@ -41,8 +41,8 @@ export function AdminPage() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center pt-16">
-        <div className="w-12 h-12 border-4 border-rose-400 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-white flex items-center justify-center pt-16">
+        <div className="w-12 h-12 border-4 border-teal-600 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -51,19 +51,19 @@ export function AdminPage() {
   if (isAdmin === false) return <Navigate to="/" replace />
 
   return (
-    <div className="min-h-screen bg-black pt-16">
+    <div className="min-h-screen bg-white pt-16">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-12">
         <div className="mb-8">
-          <h1 className="text-3xl font-black text-white tracking-tight uppercase">Admin — Orders</h1>
-          <p className="text-yellow-400 text-sm mt-2">
+          <h1 className="text-3xl font-black text-black tracking-tight uppercase">Admin — Orders</h1>
+          <p className="text-yellow-700 text-sm mt-2">
             Shell mode: read-only. No status updates, refunds, or exports yet — see DEFERRED_TODO.md.
           </p>
         </div>
 
-        <div className="border border-white/10 overflow-x-auto">
+        <div className="border border-black/10 overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-white/10 text-left text-gray-400 uppercase text-[11px] tracking-wider">
+              <tr className="border-b border-black/10 text-left text-gray-500 uppercase text-[11px] tracking-wider">
                 <th className="p-4">Order #</th>
                 <th className="p-4">Date</th>
                 <th className="p-4">Status</th>
@@ -73,9 +73,9 @@ export function AdminPage() {
             </thead>
             <tbody>
               {orders.map((order) => (
-                <tr key={order.id} className="border-b border-white/5 text-white">
+                <tr key={order.id} className="border-b border-black/5 text-black">
                   <td className="p-4 font-bold">{order.order_number}</td>
-                  <td className="p-4 text-gray-400">
+                  <td className="p-4 text-gray-500">
                     {new Date(order.created_at).toLocaleDateString('en-IN')}
                   </td>
                   <td className="p-4">{order.status}</td>

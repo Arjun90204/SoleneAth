@@ -140,114 +140,114 @@ export function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black pt-16">
+    <div className="min-h-screen bg-white pt-16">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-8">
-        <nav className="flex items-center gap-2 text-[11px] text-gray-400 mb-8">
-          <Link to="/cart" className="hover:text-white transition-colors uppercase tracking-[0.1em]">Cart</Link>
+        <nav className="flex items-center gap-2 text-[11px] text-gray-500 mb-8">
+          <Link to="/cart" className="hover:text-black transition-colors uppercase tracking-[0.1em]">Cart</Link>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-white uppercase tracking-[0.1em]">Checkout</span>
+          <span className="text-black uppercase tracking-[0.1em]">Checkout</span>
         </nav>
 
-        <h1 className="text-3xl font-black text-white tracking-tight uppercase mb-2">CHECKOUT</h1>
-        <div className="mb-8 inline-block px-3 py-1 bg-yellow-400/10 border border-yellow-400/30 text-yellow-400 text-[11px] font-bold tracking-wider uppercase">
+        <h1 className="text-3xl font-black text-black tracking-tight uppercase mb-2">CHECKOUT</h1>
+        <div className="mb-8 inline-block px-3 py-1 bg-yellow-100 border border-yellow-300 text-yellow-800 text-[11px] font-bold tracking-wider uppercase">
           Shell mode — payments are simulated, not real
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
             <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="border border-white/10 p-6">
-                <h2 className="text-[11px] font-bold tracking-[0.2em] text-white uppercase mb-6">Shipping Information</h2>
+              <div className="border border-black/10 p-6">
+                <h2 className="text-[11px] font-bold tracking-[0.2em] text-black uppercase mb-6">Shipping Information</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">First Name</label>
+                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">First Name</label>
                     <input
                       type="text"
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                       required
-                      className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">Last Name</label>
+                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Last Name</label>
                     <input
                       type="text"
                       value={formData.lastName}
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                       required
-                      className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors"
                     />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">Email</label>
+                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Email</label>
                     <input
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       required
-                      className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors"
                     />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">Phone Number</label>
+                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Phone Number</label>
                     <input
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       required
                       placeholder="+91 98765 43210"
-                      className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors placeholder:text-gray-600"
+                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors placeholder:text-gray-400"
                     />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">Address</label>
+                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Address</label>
                     <input
                       type="text"
                       value={formData.address}
                       onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                       required
-                      className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">City</label>
+                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">City</label>
                     <input
                       type="text"
                       value={formData.city}
                       onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                       required
-                      className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">State</label>
+                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">State</label>
                     <input
                       type="text"
                       value={formData.state}
                       onChange={(e) => setFormData({ ...formData, state: e.target.value })}
                       required
-                      className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-400 uppercase mb-2">PIN Code</label>
+                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">PIN Code</label>
                     <input
                       type="text"
                       value={formData.pincode}
                       onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
                       required
                       placeholder="110001"
-                      className="w-full px-4 py-3 bg-transparent border border-white/20 text-white rounded focus:border-rose-400 focus:outline-none transition-colors placeholder:text-gray-600"
+                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors placeholder:text-gray-400"
                     />
                     {/* TODO: pincode serviceability check against courier partner — deferred */}
                   </div>
                 </div>
               </div>
 
-              <div className="border border-rose-400/20 bg-rose-400/5 p-6">
-                <h2 className="text-[11px] font-bold tracking-[0.2em] text-rose-400 uppercase mb-4">Payment</h2>
-                <p className="text-sm text-gray-400">
+              <div className="border border-teal-600/20 bg-teal-600/5 p-6">
+                <h2 className="text-[11px] font-bold tracking-[0.2em] text-teal-700 uppercase mb-4">Payment</h2>
+                <p className="text-sm text-gray-600">
                   Shell mode: clicking below simulates a successful payment.
                   No real charge occurs. Real Razorpay integration is tracked
                   in DEFERRED_TODO.md.
@@ -255,7 +255,7 @@ export function CheckoutPage() {
               </div>
 
               {error && (
-                <div className="p-4 border border-red-500/20 bg-red-500/5 text-red-400 text-sm">
+                <div className="p-4 border border-red-300 bg-red-50 text-red-700 text-sm">
                   {error}
                 </div>
               )}
@@ -263,7 +263,7 @@ export function CheckoutPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-rose-400 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full py-4 bg-black text-white text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-teal-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 <Lock className="w-4 h-4" />
                 {loading ? 'PROCESSING...' : `SIMULATE PAYMENT — ${formatPrice(total)}`}
@@ -272,8 +272,8 @@ export function CheckoutPage() {
           </div>
 
           <div>
-            <div className="sticky top-24 border border-white/10 p-6">
-              <h2 className="text-[11px] font-bold tracking-[0.2em] text-white uppercase mb-6">Order Summary</h2>
+            <div className="sticky top-24 border border-black/10 p-6">
+              <h2 className="text-[11px] font-bold tracking-[0.2em] text-black uppercase mb-6">Order Summary</h2>
 
               <div className="space-y-4 mb-4 max-h-64 overflow-y-auto">
                 {items.map((item) => {
@@ -286,7 +286,7 @@ export function CheckoutPage() {
                         className="w-16 h-20 object-cover grayscale"
                       />
                       <div className="flex-1">
-                        <p className="text-[11px] font-bold text-white uppercase">{product.name}</p>
+                        <p className="text-[11px] font-bold text-black uppercase">{product.name}</p>
                         <p className="text-xs text-gray-500">{item.variant?.size} / {item.variant?.color}</p>
                         <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
                       </div>
@@ -295,30 +295,30 @@ export function CheckoutPage() {
                 })}
               </div>
 
-              <hr className="my-4 border-white/10" />
+              <hr className="my-4 border-black/10" />
 
               <div className="space-y-2 py-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Subtotal</span>
-                  <span className="text-white font-medium">{formatPrice(subtotal)}</span>
+                  <span className="text-gray-500">Subtotal</span>
+                  <span className="text-black font-medium">{formatPrice(subtotal)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Shipping</span>
-                  <span className={shipping === 0 ? 'text-rose-400 font-medium' : 'text-white font-medium'}>
+                  <span className="text-gray-500">Shipping</span>
+                  <span className={shipping === 0 ? 'text-teal-600 font-medium' : 'text-black font-medium'}>
                     {shipping === 0 ? 'FREE' : formatPrice(shipping)}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">GST (18%)</span>
-                  <span className="text-white font-medium">{formatPrice(tax)}</span>
+                  <span className="text-gray-500">GST (18%)</span>
+                  <span className="text-black font-medium">{formatPrice(tax)}</span>
                 </div>
               </div>
 
-              <hr className="my-4 border-white/10" />
+              <hr className="my-4 border-black/10" />
 
               <div className="flex justify-between text-lg">
-                <span className="text-[11px] font-bold tracking-[0.2em] text-white uppercase">Total</span>
-                <span className="font-bold text-white">{formatPrice(total)}</span>
+                <span className="text-[11px] font-bold tracking-[0.2em] text-black uppercase">Total</span>
+                <span className="font-bold text-black">{formatPrice(total)}</span>
               </div>
             </div>
           </div>

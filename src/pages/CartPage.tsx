@@ -12,14 +12,14 @@ export function CartPage() {
   // Redirect to login if not authenticated
   if (!user) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center pt-16">
+      <div className="min-h-screen bg-white flex items-center justify-center pt-16">
         <div className="text-center max-w-md px-4">
-          <ShoppingBag className="w-16 h-16 text-gray-700 mx-auto mb-6" />
-          <h2 className="text-2xl font-black text-white tracking-tight uppercase mb-4">Your cart is empty</h2>
-          <p className="text-gray-400 mb-8">Sign in to view and manage your cart.</p>
+          <ShoppingBag className="w-16 h-16 text-gray-300 mx-auto mb-6" />
+          <h2 className="text-2xl font-black text-black tracking-tight uppercase mb-4">Your cart is empty</h2>
+          <p className="text-gray-500 mb-8">Sign in to view and manage your cart.</p>
           <Link
             to="/login"
-            className="inline-flex items-center px-8 py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-rose-400 transition-colors"
+            className="inline-flex items-center px-8 py-4 bg-black text-white text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-teal-600 transition-colors"
           >
             SIGN IN <ArrowRight className="ml-2 w-4 h-4" />
           </Link>
@@ -30,22 +30,22 @@ export function CartPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center pt-16">
-        <div className="w-12 h-12 border-4 border-rose-400 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-white flex items-center justify-center pt-16">
+        <div className="w-12 h-12 border-4 border-teal-600 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center pt-16">
+      <div className="min-h-screen bg-white flex items-center justify-center pt-16">
         <div className="text-center max-w-md px-4">
-          <ShoppingBag className="w-16 h-16 text-gray-700 mx-auto mb-6" />
-          <h2 className="text-2xl font-black text-white tracking-tight uppercase mb-4">Your bag is empty</h2>
-          <p className="text-gray-400 mb-8">Looks like you haven't added anything yet.</p>
+          <ShoppingBag className="w-16 h-16 text-gray-300 mx-auto mb-6" />
+          <h2 className="text-2xl font-black text-black tracking-tight uppercase mb-4">Your bag is empty</h2>
+          <p className="text-gray-500 mb-8">Looks like you haven't added anything yet.</p>
           <Link
             to="/"
-            className="inline-flex items-center px-8 py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-rose-400 transition-colors"
+            className="inline-flex items-center px-8 py-4 bg-black text-white text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-teal-600 transition-colors"
           >
             START SHOPPING <ArrowRight className="ml-2 w-4 h-4" />
           </Link>
@@ -59,9 +59,9 @@ export function CartPage() {
   const total = subtotal + shipping + tax
 
   return (
-    <div className="min-h-screen bg-black pt-16">
+    <div className="min-h-screen bg-white pt-16">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-12">
-        <h1 className="text-3xl font-black text-white tracking-tight uppercase mb-8">
+        <h1 className="text-3xl font-black text-black tracking-tight uppercase mb-8">
           YOUR BAG <span className="text-gray-500">({totalItems})</span>
         </h1>
 
@@ -76,7 +76,7 @@ export function CartPage() {
               return (
                 <div
                   key={item.id}
-                  className="flex gap-4 pb-4 border-b border-white/10"
+                  className="flex gap-4 pb-4 border-b border-black/10"
                 >
                   <Link to={`/product/${product.slug}`} className="flex-shrink-0">
                     <img
@@ -90,7 +90,7 @@ export function CartPage() {
                       <div>
                         <Link
                           to={`/product/${product.slug}`}
-                          className="text-[11px] font-bold tracking-[0.1em] text-white uppercase hover:text-rose-400 transition-colors"
+                          className="text-[11px] font-bold tracking-[0.1em] text-black uppercase hover:text-teal-600 transition-colors"
                         >
                           {product.name}
                         </Link>
@@ -100,28 +100,28 @@ export function CartPage() {
                       </div>
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="p-2 text-gray-600 hover:text-white transition-colors"
+                        className="p-2 text-gray-400 hover:text-black transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                     <div className="flex items-center justify-between mt-4">
-                      <div className="flex items-center border border-white/20">
+                      <div className="flex items-center border border-black/20">
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+                          className="w-10 h-10 flex items-center justify-center text-black hover:bg-black/5 transition-colors"
                         >
                           <Minus className="w-3 h-3" />
                         </button>
-                        <span className="w-10 text-center text-white text-sm">{item.quantity}</span>
+                        <span className="w-10 text-center text-black text-sm">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+                          className="w-10 h-10 flex items-center justify-center text-black hover:bg-black/5 transition-colors"
                         >
                           <Plus className="w-3 h-3" />
                         </button>
                       </div>
-                      <span className="font-bold text-white">{formatPrice(itemPrice * item.quantity)}</span>
+                      <span className="font-bold text-black">{formatPrice(itemPrice * item.quantity)}</span>
                     </div>
                   </div>
                 </div>
@@ -131,49 +131,49 @@ export function CartPage() {
 
           {/* Summary */}
           <div>
-            <div className="sticky top-24 border border-white/10 p-6">
-              <h2 className="text-[11px] font-bold tracking-[0.2em] text-white uppercase mb-6">Order Summary</h2>
+            <div className="sticky top-24 border border-black/10 p-6">
+              <h2 className="text-[11px] font-bold tracking-[0.2em] text-black uppercase mb-6">Order Summary</h2>
 
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Subtotal</span>
-                  <span className="text-white font-medium">{formatPrice(subtotal)}</span>
+                  <span className="text-gray-500">Subtotal</span>
+                  <span className="text-black font-medium">{formatPrice(subtotal)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Shipping</span>
-                  <span className={`font-medium ${shipping === 0 ? 'text-rose-400' : 'text-white'}`}>
+                  <span className="text-gray-500">Shipping</span>
+                  <span className={`font-medium ${shipping === 0 ? 'text-teal-600' : 'text-black'}`}>
                     {shipping === 0 ? 'FREE' : formatPrice(shipping)}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">GST (18%)</span>
-                  <span className="text-white font-medium">{formatPrice(tax)}</span>
+                  <span className="text-gray-500">GST (18%)</span>
+                  <span className="text-black font-medium">{formatPrice(tax)}</span>
                 </div>
               </div>
 
-              <hr className="my-4 border-white/10" />
+              <hr className="my-4 border-black/10" />
 
               <div className="flex justify-between text-lg">
-                <span className="text-[11px] font-bold tracking-[0.2em] text-white uppercase">Total</span>
-                <span className="font-bold text-white">{formatPrice(total)}</span>
+                <span className="text-[11px] font-bold tracking-[0.2em] text-black uppercase">Total</span>
+                <span className="font-bold text-black">{formatPrice(total)}</span>
               </div>
 
               {subtotal < FREE_SHIPPING_THRESHOLD && (
-                <p className="mt-4 text-xs text-rose-400 text-center">
+                <p className="mt-4 text-xs text-teal-600 text-center">
                   Add {formatPrice(FREE_SHIPPING_THRESHOLD - subtotal)} more for free shipping!
                 </p>
               )}
 
               <Link
                 to="/checkout"
-                className="mt-6 block w-full py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] uppercase text-center hover:bg-rose-400 transition-colors"
+                className="mt-6 block w-full py-4 bg-black text-white text-[11px] font-bold tracking-[0.15em] uppercase text-center hover:bg-teal-600 transition-colors"
               >
                 CHECKOUT
               </Link>
 
               <Link
                 to="/"
-                className="mt-4 block w-full py-3 text-center text-[11px] font-bold tracking-[0.15em] text-gray-400 hover:text-white uppercase transition-colors"
+                className="mt-4 block w-full py-3 text-center text-[11px] font-bold tracking-[0.15em] text-gray-500 hover:text-black uppercase transition-colors"
               >
                 Continue Shopping
               </Link>

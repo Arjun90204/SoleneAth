@@ -17,9 +17,9 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link to={`/product/${product.slug}`} className="group block">
-      <div className="relative overflow-hidden bg-gray-900 aspect-[3/4]">
+      <div className="relative overflow-hidden bg-gray-100 aspect-[3/4]">
         {!imageLoaded && (
-          <div className="absolute inset-0 bg-gray-800 animate-pulse" />
+          <div className="absolute inset-0 bg-gray-200 animate-pulse" />
         )}
         <img
           src={product.image_url}
@@ -33,7 +33,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Discount Badge */}
         {discount && (
           <div className="absolute top-3 left-3">
-            <span className="inline-block bg-rose-400 text-black text-[10px] font-bold tracking-wider px-2 py-1 rounded-sm">
+            <span className="inline-block bg-teal-400 text-black text-[10px] font-bold tracking-wider px-2 py-1 rounded-sm">
               -{discount}%
             </span>
           </div>
@@ -53,7 +53,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="p-3">
             <button
               onClick={(e) => e.preventDefault()}
-              className="w-full py-3 bg-white text-black text-[11px] font-bold tracking-[0.15em] hover:bg-rose-400 transition-colors flex items-center justify-center gap-2"
+              className="w-full py-3 bg-white text-black text-[11px] font-bold tracking-[0.15em] hover:bg-teal-400 transition-colors flex items-center justify-center gap-2"
             >
               <Plus className="w-4 h-4" />
               QUICK ADD
@@ -73,7 +73,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
       {/* Product Info */}
       <div className="mt-3 pb-4">
-        <h3 className="text-[11px] font-bold tracking-[0.1em] text-white uppercase group-hover:text-rose-400 transition-colors">
+        <h3 className="text-[11px] font-bold tracking-[0.1em] text-black uppercase group-hover:text-teal-600 transition-colors">
           {product.name}
         </h3>
 
@@ -82,7 +82,7 @@ export function ProductCard({ product }: ProductCardProps) {
           {product.colors.slice(0, 5).map((color, i) => (
             <span
               key={i}
-              className="w-3 h-3 rounded-full border border-white/20 hover:scale-110 transition-transform cursor-pointer"
+              className="w-3 h-3 rounded-full border border-black/10 hover:scale-110 transition-transform cursor-pointer"
               style={{ backgroundColor: getColorValue(color) }}
               title={color}
             />
@@ -94,7 +94,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {/* Price */}
         <div className="flex items-center gap-2 mt-2">
-          <span className="text-sm font-bold text-white">{formatPrice(product.price)}</span>
+          <span className="text-sm font-bold text-black">{formatPrice(product.price)}</span>
           {product.compare_at_price && (
             <span className="text-sm text-gray-500 line-through">
               {formatPrice(product.compare_at_price)}

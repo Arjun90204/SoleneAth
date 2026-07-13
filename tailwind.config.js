@@ -4,13 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Solène's brand accent — overrides Tailwind's default rose shades.
-        rose: {
-          300: '#e8b4bc',
-          400: '#d88c9a',
-          500: '#c26b7a',
-          600: '#a8505f',
-          700: '#8a3d4a',
+        // Soléan's brand accent — overrides Tailwind's default teal shades.
+        // 300/400 are light enough to sit under dark text (badges, swatches);
+        // 500/600/700 are dark enough to use as text/borders directly on the
+        // white page background.
+        teal: {
+          300: '#9fe0d6',
+          400: '#4fc3b4',
+          500: '#249c8d',
+          600: '#1c7a6e',
+          700: '#155a52',
         },
       },
       fontFamily: {
