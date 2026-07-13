@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Instagram, Facebook, Twitter, Youtube } from 'lucide-react'
 import { FREE_SHIPPING_THRESHOLD } from '../lib/utils'
+import logoKnot from '../assets/logo-knot.png'
 
 export function Footer() {
   return (
@@ -76,7 +77,8 @@ export function Footer() {
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-center md:text-left">
-            <Link to="/" className="inline-block">
+            <Link to="/" className="inline-flex items-center gap-2">
+              <img src={logoKnot} alt="" className="w-6 h-6" />
               <span className="text-xl font-black tracking-[0.15em] text-black">SOLÉAN</span>
             </Link>
             <p className="text-xs text-gray-500 mt-2">© 2026 Soléan India. All rights reserved.</p>

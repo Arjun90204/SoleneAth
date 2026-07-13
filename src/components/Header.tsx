@@ -4,6 +4,7 @@ import { Menu, X, ShoppingBag, User, Search, ChevronDown } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useCart } from '../context/CartContext'
 import { FREE_SHIPPING_THRESHOLD } from '../lib/utils'
+import logoKnot from '../assets/logo-knot.png'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -93,7 +94,8 @@ export function Header() {
                 {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
 
-              <Link to="/" className="flex-1 lg:flex-none text-center lg:text-left">
+              <Link to="/" className="flex-1 lg:flex-none flex items-center justify-center lg:justify-start gap-2">
+                <img src={logoKnot} alt="" className="w-7 h-7 lg:w-8 lg:h-8" />
                 <span className="text-2xl lg:text-3xl font-black tracking-[0.15em] text-black">
                   SOLÉAN
                 </span>

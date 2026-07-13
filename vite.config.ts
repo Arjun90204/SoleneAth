@@ -7,4 +7,9 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  server: {
+    // Listen on the local network, not just localhost, so the dev server
+    // is reachable from a phone on the same Wi-Fi during development.
+    host: true,
+  },
 });

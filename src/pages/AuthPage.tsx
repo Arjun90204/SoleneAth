@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Eye, EyeOff } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import logoKnot from '../assets/logo-knot.png'
 
 export function AuthPage() {
   const location = useLocation()
@@ -63,7 +64,8 @@ export function AuthPage() {
       <div className="flex-1 flex items-center justify-center p-4 md:p-8">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <Link to="/" className="inline-block mb-6">
+            <Link to="/" className="inline-flex items-center justify-center gap-2 mb-6">
+              <img src={logoKnot} alt="" className="w-8 h-8" />
               <span className="text-3xl font-black tracking-[0.15em] text-black">SOLÉAN</span>
             </Link>
             <h1 className="text-2xl font-black text-black tracking-tight uppercase">
