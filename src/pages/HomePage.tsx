@@ -192,17 +192,23 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Video/Image Section with Text Overlay. Text sits on a photo, stays white/light-teal. */}
-      <section className="relative aspect-[21/9] md:aspect-[3/1] overflow-hidden">
+      {/* Video/Image Section with Text Overlay. Text sits on a photo, stays white/light-teal.
+          BUG FIX: this used a fixed aspect-[21/9] on mobile, which at phone
+          widths (e.g. 375px) computes to ~160px tall — nowhere near enough
+          room for the 3-line heading plus button, so overflow-hidden
+          silently clipped it. min-h-* guarantees enough room regardless of
+          content length; md+ still uses the aspect ratio, since desktop
+          widths give plenty of height at that ratio. */}
+      <section className="relative min-h-[420px] md:min-h-0 md:aspect-[3/1] overflow-hidden">
         <img
           src="https://images.pexels.com/photos/10467197/pexels-photo-10467197.jpeg?auto=compress&cs=tinysrgb&w=1920"
           alt="Training"
           className="w-full h-full object-cover grayscale"
         />
         <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center py-10">
           <div className="text-center max-w-xl px-4">
-            <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white tracking-tight mb-6">
               TRAIN<br/><span className="text-teal-400">WITHOUT</span><br/>LIMITS
             </h2>
             <Link
