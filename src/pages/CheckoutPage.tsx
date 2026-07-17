@@ -64,42 +64,8 @@ export function CheckoutPage() {
     try {
       const orderNumber = `SL-${Date.now().toString().slice(-8)}`
 
-      const { data: order, error: orderError } = await supabase
-        .from('orders')
-        .insert({
-          user_id: user!.id,
-          order_number: orderNumber,
-          status: 'pending',
-          subtotal,
-          tax,
-          shipping,
-          total,
-          shipping_address: formData,
-          billing_address: formData,
-          payment_status: 'pending'
-        })
-        .select()
-        .single()
-
-      if (orderError) throw orderError
-
-      for (const item of items) {
-        const product = item.product as Product
-        const variant = item.variant as ProductVariant
-
-        await supabase.from('order_items').insert({
-          order_id: order.id,
-          product_id: product.id,
-          variant_id: variant?.id,
-          quantity: item.quantity,
-          price: product.price + (variant?.price_adjustment || 0),
-          product_name: product.name,
-          variant_info: { size: variant?.size, color: variant?.color }
-        })
-      }
-
       // ============================================================
-      // TODO: REAL RAZORPAY — this entire block is a MOCK for the shell.
+      // TODO: REAL RAZORPAY — payment confirmation is still a MOCK.
       //
       // Real flow (see DEFERRED_TODO.md):
       //   1. Call an Edge Function to create a Razorpay order server-side
@@ -108,21 +74,45 @@ export function CheckoutPage() {
       //   2. Open Razorpay's checkout.js widget with that order id.
       //   3. On success, Razorpay redirects/callbacks with a payment id +
       //      signature. Send those to another Edge Function that verifies
-      //      the signature server-side and ONLY THEN marks the order paid.
+      //      the signature server-side and ONLY THEN calls place_order
+      //      (or an equivalent RPC) to actually create the order.
       //   4. A separate Razorpay webhook (not just the client callback)
       //      should also confirm payment — client-only confirmation can
       //      be spoofed.
-      //   5. On confirmed payment: decrement inventory atomically, send
-      //      receipt email, store business-copy receipt.
+      //   5. On confirmed payment: send receipt email, store business-copy
+      //      receipt.
       //
-      // None of that exists yet. Below, we just immediately mark the
-      // order "paid" so you can test the rest of the shell end-to-end.
-      // DO NOT let this ship to real customers.
+      // Inventory locking is real, though: place_order() (see
+      // supabase/migrations/20260714000000_atomic_place_order.sql) decrements
+      // product_variants.inventory atomically inside the same transaction
+      // that creates the order, so two customers can never both "buy" the
+      // last unit. It also sets payment_status: 'paid' immediately, which is
+      // the mock part — a real integration would only reach that state after
+      // step 3 above confirms.
       // ============================================================
-      await supabase
-        .from('orders')
-        .update({ payment_status: 'paid', status: 'processing' })
-        .eq('id', order.id)
+      const { error: orderError } = await supabase.rpc('place_order', {
+        p_order_number: orderNumber,
+        p_subtotal: subtotal,
+        p_tax: tax,
+        p_shipping: shipping,
+        p_total: total,
+        p_shipping_address: formData,
+        p_billing_address: formData,
+        p_items: items.map((item) => {
+          const product = item.product as Product
+          const variant = item.variant as ProductVariant
+          return {
+            product_id: product.id,
+            variant_id: variant?.id,
+            quantity: item.quantity,
+            price: product.price + (variant?.price_adjustment || 0),
+            product_name: product.name,
+            variant_info: { size: variant?.size, color: variant?.color },
+          }
+        }),
+      })
+
+      if (orderError) throw orderError
 
       // BUG FIX: navigate before clearing the cart. clearCart() updates
       // CartContext state, which re-triggers this page's own "redirect to
@@ -133,7 +123,23 @@ export function CheckoutPage() {
       navigate(`/checkout/success?order=${orderNumber}`)
       await clearCart()
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to place order')
+      // BUG FIX: supabase.rpc()'s `error` is a PostgrestError — a plain
+      // object with a `message` property, not a native Error instance — so
+      // `err instanceof Error` was always false for it, silently swallowing
+      // the real message (including the friendly out-of-stock one below)
+      // and always falling back to "Failed to place order".
+      const message =
+        err instanceof Error
+          ? err.message
+          : typeof err === 'object' && err !== null && 'message' in err
+            ? String((err as { message: unknown }).message)
+            : 'Failed to place order'
+      if (message.includes('insufficient_inventory')) {
+        const productName = message.split(':')[1]?.trim() || 'One of the items in your bag'
+        setError(`${productName} just sold out in that size/color. Please update your bag and try again.`)
+      } else {
+        setError(message)
+      }
     } finally {
       setLoading(false)
     }

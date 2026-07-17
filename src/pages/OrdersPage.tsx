@@ -24,26 +24,19 @@ export function OrdersPage() {
     async function fetchOrders() {
       if (!user) return
 
+      // BUG FIX: previously fetched orders, then fetched each order's items
+      // in a separate query inside a loop (N+1: one query becomes 1+N as
+      // order history grows). Embedding order_items in the same query lets
+      // Postgres do the join in a single round-trip instead.
       const { data: ordersData } = await supabase
         .from('orders')
-        .select('*')
+        .select('*, items:order_items(*)')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false })
 
       if (!ordersData) return
 
-      const ordersWithItems = await Promise.all(
-        ordersData.map(async (order) => {
-          const { data: items } = await supabase
-            .from('order_items')
-            .select('*')
-            .eq('order_id', order.id)
-
-          return { ...order, items: items || [] }
-        })
-      )
-
-      setOrders(ordersWithItems)
+      setOrders(ordersData as unknown as OrderWithItems[])
       setLoading(false)
     }
     fetchOrders()

@@ -18,9 +18,6 @@ Every item below is currently a placeholder, mock, or missing entirely.
       refund trigger.
 - [ ] **COD decision**: prepaid-only right now. Decide if Cash on Delivery is
       offered, and if so, build the fraud/RTO handling for it.
-- [ ] **Inventory oversell locking**: `product_variants.inventory` exists but
-      nothing decrements it atomically on purchase, and nothing reserves stock
-      during checkout. Two people can currently buy the last unit.
 - [ ] **Legal pages**: Terms of Service, Privacy Policy (DPDP Act 2023
       compliant), Refund/Cancellation Policy, Shipping Policy are all just
       footer links to `#` right now. Needs real content + lawyer review.
@@ -73,6 +70,21 @@ Every item below is currently a placeholder, mock, or missing entirely.
   `is_admin = true`
 - Product search (`/search?q=`) — queries name + description against
   Postgres, wired to the header's search icon
+- **Inventory oversell locking** — `place_order()` (see
+  `supabase/migrations/20260714000000_atomic_place_order.sql`) atomically
+  decrements `product_variants.inventory` for every line item inside the
+  same transaction that creates the order. If any item doesn't have
+  enough stock, the whole order (including any decrements already made
+  in that call) rolls back and the customer sees a friendly "just sold
+  out" message. Verified by forcing a variant to 1 unit, attempting a
+  2-unit purchase (rejected, zero side effects), then a 1-unit purchase
+  (succeeded, inventory hit exactly 0).
+  - **Still deferred**: this decrements at order-creation time, which is
+    correct for the current instant-mock payment flow. Once real
+    Razorpay is wired up (async payment), you'll need a matching
+    "release the reservation if payment fails or times out" mechanism —
+    otherwise abandoned checkouts permanently lock stock. Revisit this
+    when building the real payment integration.
 
 ## Rebrand (2026-07-13): Soléan, white/teal theme
 
@@ -125,6 +137,23 @@ database, not by typechecking/linting alone — worth remembering as more
 flows (Razorpay, receipts, admin actions) get built: any page that gates
 behavior on `useAuth()`/`useCart()` state in a `useEffect` needs to account
 for the loading window, not just the final resolved value.
+
+## More bugs found and fixed (2026-07-17): inventory locking + high-traffic prep
+
+- **`OrdersPage` had an N+1 query.** It fetched all orders, then fetched
+  each order's items in a separate query inside `.map()` — one query
+  becomes 1+N as order history grows, which gets expensive fast under
+  real traffic. Fixed by embedding `order_items` in the same query
+  (`select('*, items:order_items(*)')`) so Postgres does the join in a
+  single round-trip.
+- **Checkout error messages were silently wrong.** `CheckoutPage` did
+  `err instanceof Error ? err.message : 'Failed to place order'` — but
+  `supabase.rpc()`/`.from()` errors are plain `PostgrestError` objects,
+  not `Error` instances, so that check was always false and every
+  failure (including the friendly out-of-stock message) collapsed to
+  the generic fallback. Fixed by also checking for a `message` property
+  on the error object directly. Worth checking any other catch block
+  that does `err instanceof Error` after a Supabase call.
 
 ---
 *Last updated: shell build phase, post end-to-end verification. Update this
