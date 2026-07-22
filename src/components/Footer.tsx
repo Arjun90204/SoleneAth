@@ -44,10 +44,10 @@ export function Footer() {
           <div>
             <h3 className="text-[11px] font-bold tracking-[0.2em] text-black uppercase mb-6">Connect</h3>
             <div className="flex flex-wrap gap-4 mb-6">
-              <a href="#" className="text-gray-500 hover:text-black transition-colors"><Instagram className="w-5 h-5" /></a>
-              <a href="#" className="text-gray-500 hover:text-black transition-colors"><Facebook className="w-5 h-5" /></a>
-              <a href="#" className="text-gray-500 hover:text-black transition-colors"><Twitter className="w-5 h-5" /></a>
-              <a href="#" className="text-gray-500 hover:text-black transition-colors"><Youtube className="w-5 h-5" /></a>
+              <a href="#" aria-label="Instagram" className="text-gray-500 hover:text-black transition-colors"><Instagram className="w-5 h-5" /></a>
+              <a href="#" aria-label="Facebook" className="text-gray-500 hover:text-black transition-colors"><Facebook className="w-5 h-5" /></a>
+              <a href="#" aria-label="Twitter" className="text-gray-500 hover:text-black transition-colors"><Twitter className="w-5 h-5" /></a>
+              <a href="#" aria-label="YouTube" className="text-gray-500 hover:text-black transition-colors"><Youtube className="w-5 h-5" /></a>
             </div>
             <div className="space-y-3 text-sm text-gray-500">
               <p>Customer Support</p>

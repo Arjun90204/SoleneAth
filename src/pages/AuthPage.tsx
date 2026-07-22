@@ -81,8 +81,9 @@ export function AuthPage() {
               <>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">First Name</label>
+                    <label htmlFor="auth-first-name" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">First Name</label>
                     <input
+                      id="auth-first-name"
                       type="text"
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
@@ -92,8 +93,9 @@ export function AuthPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Last Name</label>
+                    <label htmlFor="auth-last-name" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Last Name</label>
                     <input
+                      id="auth-last-name"
                       type="text"
                       value={formData.lastName}
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
@@ -104,22 +106,24 @@ export function AuthPage() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Phone Number</label>
+                  <label htmlFor="auth-phone" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Phone Number</label>
                   <input
+                    id="auth-phone"
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     required
                     placeholder="+91 98765 43210"
-                    className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors placeholder:text-gray-400"
+                    className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors placeholder:text-gray-500"
                   />
                 </div>
               </>
             )}
 
             <div>
-              <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Email</label>
+              <label htmlFor="auth-email" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Email</label>
               <input
+                id="auth-email"
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -130,9 +134,10 @@ export function AuthPage() {
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Password</label>
+              <label htmlFor="auth-password" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Password</label>
               <div className="relative">
                 <input
+                  id="auth-password"
                   type={showPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -143,7 +148,8 @@ export function AuthPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-black transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -152,8 +158,9 @@ export function AuthPage() {
 
             {!isLogin && (
               <div>
-                <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Confirm Password</label>
+                <label htmlFor="auth-confirm-password" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Confirm Password</label>
                 <input
+                  id="auth-confirm-password"
                   type="password"
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}

@@ -8,6 +8,16 @@ Every item below is currently a placeholder, mock, or missing entirely.
 
 ## 🔴 BLOCKERS — cannot go live without these
 
+- [ ] **APPLY THE PENDING SECURITY MIGRATION.** A live-tested security pass
+      (2026-07-22) found that any logged-in user could grant themselves
+      admin access — see the writeup further down. The fix is written at
+      `supabase/migrations/20260722000000_restrict_profile_column_updates.sql`
+      but has NOT been confirmed applied to the live project yet (a local
+      networking issue blocked running it directly — either it was run
+      manually via the SQL editor, or it still needs to be). Verify this
+      is live before accepting real signups: try PATCHing your own
+      `is_admin` field as a logged-in user via the REST API — it must fail.
+
 - [ ] **Payment gateway**: Razorpay is currently MOCKED in `CheckoutPage.tsx`
       (search for `// TODO: REAL RAZORPAY`). Needs live business account,
       KYC-approved keys, and a real webhook handler with signature verification.
@@ -154,6 +164,100 @@ for the loading window, not just the final resolved value.
   the generic fallback. Fixed by also checking for a `message` property
   on the error object directly. Worth checking any other catch block
   that does `err instanceof Error` after a Supabase call.
+
+## Security & accessibility test pass (2026-07-22)
+
+Ran a realistic subset of a full enterprise QA plan Arjun provided (skipped
+load/stress testing against the live project, and anything requiring
+infrastructure that doesn't exist yet — see chat for the full breakdown).
+
+### 🔴 Critical: privilege escalation via profile updates — FIXED IN CODE, CONFIRM APPLIED
+
+Verified live with two real test accounts: any logged-in user could send a
+single `PATCH` to their own `profiles` row setting `is_admin: true`, with
+no app bug in the UI involved — just their own valid session and a direct
+REST call. This worked because `update_own_profile`'s RLS policy only
+restricted *which row* a user could touch (their own), never *which
+columns*. Once self-escalated, the existing "admins see all orders" policy
+on `orders` immediately exposed every customer's order and shipping
+address. Fix: column-level `GRANT UPDATE (phone, first_name, last_name)`,
+excluding `is_admin` and `email` — see
+`supabase/migrations/20260722000000_restrict_profile_column_updates.sql`.
+**This migration's live status is unconfirmed** (see BLOCKERS above) — verify before launch.
+
+### Fixed same session
+
+- **PostgREST filter injection in search.** `SearchPage` interpolated the
+  raw search box text into a `.or()` filter string. A query containing a
+  comma (e.g. `test,id.neq.<uuid>`) could append an unintended condition —
+  verified this actually returned every product instead of just matches.
+  Low real impact today (products are public data), but the same pattern
+  reused against a restricted table would be a genuine exposure risk.
+  Fixed by stripping PostgREST grammar characters (`,` `.` `(` `)`) before
+  building the filter.
+- **Every form label was visually present but not programmatically linked
+  to its input** (login, signup, checkout — ~14 fields) — a real WCAG
+  1.3.1/4.1.2 failure meaning screen reader users got no accessible name
+  for any field on the entire purchase path. Fixed with proper
+  `id`/`htmlFor` pairs.
+- **~13 icon-only buttons had no accessible name** (menu toggle, search/
+  account/cart icons, image nav arrows, thumbnails, wishlist, quantity
+  +/-, remove-from-cart, footer social links). Fixed with `aria-label` (or
+  `aria-current` for the active thumbnail).
+- **"Added to your bag!" had no live region** — screen reader users got no
+  announcement at all when adding to cart, despite this being the literal
+  example in most accessibility checklists. Fixed with `role="status"`.
+- **Low-contrast icons/placeholders.** Search icon, password show/hide
+  icon, and cart remove icon (all interactive controls) sat at 2.54:1,
+  below WCAG's 3:1 minimum for UI components; input placeholders had the
+  same issue. Bumped gray-400 → gray-500 for these specific instances.
+  (`gray-300` elsewhere is fine — verified those all sit on dark photo
+  overlays at 14:1+, not on white.)
+- **Header search input removed the focus outline with no replacement** —
+  a keyboard user tabbing to it saw zero indication it was focused. Fixed
+  with a visible focus ring, matching the pattern already used elsewhere.
+- **7 touch targets under 48×48px**: mobile menu button (40px), header
+  icons (44px), product image nav arrows (36px), color swatches (40px),
+  "QUICK ADD" button (41px tall), category filter size buttons (40px
+  tall). All bumped to meet the 48px guideline.
+
+### Verified working, no fix needed
+
+- RLS/BOLA: created two real accounts, confirmed User B cannot read User
+  A's cart, orders (including a direct ID-guess/IDOR attempt), or profile
+  under any query shape — every attempt returned empty. Admin bypass
+  correctly grants visibility only when `is_admin` is genuinely true.
+- No XSS sinks (`dangerouslySetInnerHTML`/`innerHTML=`) and no dynamic SQL
+  string-building anywhere in the app or migrations.
+- Keyboard navigation reaches all header controls in a logical order with
+  correct accessible names.
+
+### Worth knowing, not a bug
+
+- **Logging out clears the session client-side, but the JWT itself stays
+  valid until its natural expiry** (Supabase default ~1hr) even after
+  sign-out — this is standard stateless-JWT behavior (same as most
+  systems), not a Solène-specific flaw. Matters only if a token were ever
+  stolen via some other vector; nothing found here that would let that
+  happen.
+- **Guest checkout doesn't exist** — `/cart`/`/checkout` require login.
+  The original test plan assumed guest-cart state exists to test; it
+  doesn't yet. Worth deciding intentionally if that's in scope pre-launch.
+
+### Noticed in passing, not fixed (separate scope)
+
+- `ProductCard`'s "QUICK ADD" button does nothing (`onClick={(e) =>
+  e.preventDefault()}`) — currently just prevents the card's own link
+  navigation without actually adding to cart. Cosmetic-only right now.
+
+### Explicitly not run (see chat for full reasoning)
+
+Load/spike/stress/endurance testing (no production deployment to test
+against, real risk to the live Supabase project), real screen readers
+(NVDA/JAWS/VoiceOver — checked contrast/keyboard/ARIA programmatically
+instead), actual Safari/Firefox engines (only one Chromium-based browser
+available), ERP/WMS/payment-gateway/bot-mitigation testing (none of this
+is built yet).
 
 ---
 *Last updated: shell build phase, post end-to-end verification. Update this

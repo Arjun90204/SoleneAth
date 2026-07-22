@@ -100,7 +100,8 @@ export function CartPage() {
                       </div>
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="p-2 text-gray-400 hover:text-black transition-colors"
+                        aria-label={`Remove ${product.name} from bag`}
+                        className="p-2 text-gray-500 hover:text-black transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -109,13 +110,15 @@ export function CartPage() {
                       <div className="flex items-center border border-black/20">
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          aria-label={`Decrease quantity of ${product.name}`}
                           className="w-10 h-10 flex items-center justify-center text-black hover:bg-black/5 transition-colors"
                         >
                           <Minus className="w-3 h-3" />
                         </button>
-                        <span className="w-10 text-center text-black text-sm">{item.quantity}</span>
+                        <span className="w-10 text-center text-black text-sm" aria-live="polite">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          aria-label={`Increase quantity of ${product.name}`}
                           className="w-10 h-10 flex items-center justify-center text-black hover:bg-black/5 transition-colors"
                         >
                           <Plus className="w-3 h-3" />

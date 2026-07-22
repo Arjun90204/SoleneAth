@@ -19,10 +19,22 @@ export function SearchPage() {
       }
 
       setLoading(true)
+      // SECURITY FIX: PostgREST's .or() filter is parsed from a raw string
+      // where `,` separates conditions and `.`/`(`/`)` have grammatical
+      // meaning (column.operator.value, grouping). Interpolating the
+      // search box's text directly into that string let a query like
+      // "test,id.neq.<uuid>" append an unintended extra condition and
+      // widen the filter beyond the two columns being searched — verified
+      // this actually returns all products, not just matches. Products are
+      // public data so the real-world impact is low today, but the same
+      // pattern would be a genuine data-exposure risk if ever reused
+      // against a table with row-level restrictions. Stripping PostgREST's
+      // grammar characters keeps the query a plain search term.
+      const sanitizedQuery = query.replace(/[,.()]/g, '')
       const { data } = await supabase
         .from('products')
         .select('*')
-        .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
+        .or(`name.ilike.%${sanitizedQuery}%,description.ilike.%${sanitizedQuery}%`)
         .order('featured', { ascending: false })
 
       setResults(data || [])

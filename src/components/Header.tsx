@@ -89,7 +89,8 @@ export function Header() {
             <div className="flex items-center justify-between h-16 px-4 lg:px-8">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="lg:hidden p-2 -ml-2 text-black hover:text-gray-600 transition-colors"
+                aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+                className="lg:hidden p-3 -ml-3 text-black hover:text-gray-600 transition-colors"
               >
                 {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -121,14 +122,14 @@ export function Header() {
                 <button
                   onClick={() => setIsSearchOpen(!isSearchOpen)}
                   aria-label={isSearchOpen ? 'Close search' : 'Search products'}
-                  className="p-3 text-black hover:text-gray-600 transition-colors"
+                  className="p-3.5 text-black hover:text-gray-600 transition-colors"
                 >
                   {isSearchOpen ? <X className="w-5 h-5" /> : <Search className="w-5 h-5" />}
                 </button>
-                <Link to="/account" className="p-3 text-black hover:text-gray-600 transition-colors">
+                <Link to="/account" aria-label="Account" className="p-3.5 text-black hover:text-gray-600 transition-colors">
                   <User className="w-5 h-5" />
                 </Link>
-                <Link to="/cart" className="p-3 text-black hover:text-gray-600 transition-colors relative">
+                <Link to="/cart" aria-label={`Cart, ${totalItems} item${totalItems !== 1 ? 's' : ''}`} className="p-3.5 text-black hover:text-gray-600 transition-colors relative">
                   <ShoppingBag className="w-5 h-5" />
                   {totalItems > 0 && (
                     <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-teal-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold">
@@ -143,14 +144,14 @@ export function Header() {
             {isSearchOpen && (
               <div className="border-t border-black/10 px-4 lg:px-8 py-4">
                 <form onSubmit={handleSearchSubmit} className="max-w-[1400px] mx-auto flex items-center gap-3">
-                  <Search className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                  <Search className="w-5 h-5 text-gray-500 flex-shrink-0" />
                   <input
                     ref={searchInputRef}
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search for leggings, sports bras, co-ords..."
-                    className="flex-1 bg-transparent text-black placeholder:text-gray-400 text-sm focus:outline-none"
+                    className="flex-1 bg-transparent text-black placeholder:text-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-teal-600 rounded px-1 -mx-1"
                   />
                   <button
                     type="submit"

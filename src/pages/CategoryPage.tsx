@@ -185,7 +185,7 @@ export function CategoryPage() {
                           prev.includes(size) ? prev.filter(s => s !== size) : [...prev, size]
                         )
                       }}
-                      className={`w-12 h-10 border text-[11px] font-bold transition-colors ${
+                      className={`w-12 h-12 border text-[11px] font-bold transition-colors ${
                         selectedSizes.includes(size)
                           ? 'border-teal-600 bg-teal-600/10 text-teal-600'
                           : 'border-black/20 text-gray-500 hover:border-black/40'

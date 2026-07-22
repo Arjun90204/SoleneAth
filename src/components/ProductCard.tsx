@@ -53,7 +53,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="p-3">
             <button
               onClick={(e) => e.preventDefault()}
-              className="w-full py-3 bg-white text-black text-[11px] font-bold tracking-[0.15em] hover:bg-teal-400 transition-colors flex items-center justify-center gap-2"
+              className="w-full py-4 bg-white text-black text-[11px] font-bold tracking-[0.15em] hover:bg-teal-400 transition-colors flex items-center justify-center gap-2"
             >
               <Plus className="w-4 h-4" />
               QUICK ADD

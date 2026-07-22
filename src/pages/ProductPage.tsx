@@ -154,14 +154,16 @@ export function ProductPage() {
                 <>
                   <button
                     onClick={() => setCurrentImageIndex(Math.max(0, currentImageIndex - 1))}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/70 hover:bg-white/90 text-black transition-colors"
+                    aria-label="Previous image"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-3.5 bg-white/70 hover:bg-white/90 text-black transition-colors"
                     disabled={currentImageIndex === 0}
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => setCurrentImageIndex(Math.min(product.images.length - 1, currentImageIndex + 1))}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/70 hover:bg-white/90 text-black transition-colors"
+                    aria-label="Next image"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3.5 bg-white/70 hover:bg-white/90 text-black transition-colors"
                     disabled={currentImageIndex === product.images.length - 1}
                   >
                     <ChevronRight className="w-5 h-5" />
@@ -175,6 +177,8 @@ export function ProductPage() {
                   <button
                     key={i}
                     onClick={() => setCurrentImageIndex(i)}
+                    aria-label={`View image ${i + 1} of ${product.images.length}`}
+                    aria-current={i === currentImageIndex}
                     className={`flex-shrink-0 w-20 h-24 overflow-hidden border-2 transition-colors ${
                       i === currentImageIndex ? 'border-teal-600' : 'border-transparent hover:border-black/20'
                     }`}
@@ -198,7 +202,7 @@ export function ProductPage() {
                   {product.name}
                 </h1>
               </div>
-              <button className="p-3 border border-black/20 text-gray-500 hover:text-black hover:border-black transition-colors">
+              <button aria-label="Add to wishlist" className="p-3 border border-black/20 text-gray-500 hover:text-black hover:border-black transition-colors">
                 <Heart className="w-5 h-5" />
               </button>
             </div>
@@ -221,7 +225,8 @@ export function ProductPage() {
                   <button
                     key={color}
                     onClick={() => handleColorSelect(color)}
-                    className={`w-10 h-10 rounded-full border-2 transition-all ${
+                    aria-label={`Color: ${color}${color === selectedColor ? ' (selected)' : ''}`}
+                    className={`w-12 h-12 rounded-full border-2 transition-all ${
                       color === selectedColor ? 'ring-2 ring-offset-2 ring-offset-white ring-teal-600 border-teal-600' : 'border-black/20 hover:border-black/40'
                     }`}
                     style={{ backgroundColor: color.toLowerCase() }}
@@ -267,13 +272,15 @@ export function ProductPage() {
               <div className="flex items-center border border-black/20 w-fit">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  aria-label="Decrease quantity"
                   className="w-12 h-12 flex items-center justify-center text-black hover:bg-black/5 transition-colors"
                 >
                   <Minus className="w-4 h-4" />
                 </button>
-                <span className="w-12 text-center text-black font-bold">{quantity}</span>
+                <span className="w-12 text-center text-black font-bold" aria-live="polite">{quantity}</span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
+                  aria-label="Increase quantity"
                   className="w-12 h-12 flex items-center justify-center text-black hover:bg-black/5 transition-colors"
                 >
                   <Plus className="w-4 h-4" />
@@ -291,7 +298,7 @@ export function ProductPage() {
               </button>
 
               {showAddedMessage && (
-                <div className="mt-4 p-4 bg-teal-600/10 border border-teal-600/20 flex items-center gap-3 text-teal-700">
+                <div role="status" className="mt-4 p-4 bg-teal-600/10 border border-teal-600/20 flex items-center gap-3 text-teal-700">
                   <Check className="w-5 h-5" />
                   <span className="text-sm font-medium">Added to your bag!</span>
                 </div>

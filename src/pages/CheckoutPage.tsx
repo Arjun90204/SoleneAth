@@ -166,8 +166,9 @@ export function CheckoutPage() {
                 <h2 className="text-[11px] font-bold tracking-[0.2em] text-black uppercase mb-6">Shipping Information</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">First Name</label>
+                    <label htmlFor="checkout-first-name" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">First Name</label>
                     <input
+                      id="checkout-first-name"
                       type="text"
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
@@ -176,8 +177,9 @@ export function CheckoutPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Last Name</label>
+                    <label htmlFor="checkout-last-name" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Last Name</label>
                     <input
+                      id="checkout-last-name"
                       type="text"
                       value={formData.lastName}
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
@@ -186,8 +188,9 @@ export function CheckoutPage() {
                     />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Email</label>
+                    <label htmlFor="checkout-email" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Email</label>
                     <input
+                      id="checkout-email"
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -196,19 +199,21 @@ export function CheckoutPage() {
                     />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Phone Number</label>
+                    <label htmlFor="checkout-phone" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Phone Number</label>
                     <input
+                      id="checkout-phone"
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       required
                       placeholder="+91 98765 43210"
-                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors placeholder:text-gray-400"
+                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors placeholder:text-gray-500"
                     />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Address</label>
+                    <label htmlFor="checkout-address" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">Address</label>
                     <input
+                      id="checkout-address"
                       type="text"
                       value={formData.address}
                       onChange={(e) => setFormData({ ...formData, address: e.target.value })}
@@ -217,8 +222,9 @@ export function CheckoutPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">City</label>
+                    <label htmlFor="checkout-city" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">City</label>
                     <input
+                      id="checkout-city"
                       type="text"
                       value={formData.city}
                       onChange={(e) => setFormData({ ...formData, city: e.target.value })}
@@ -227,8 +233,9 @@ export function CheckoutPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">State</label>
+                    <label htmlFor="checkout-state" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">State</label>
                     <input
+                      id="checkout-state"
                       type="text"
                       value={formData.state}
                       onChange={(e) => setFormData({ ...formData, state: e.target.value })}
@@ -237,14 +244,15 @@ export function CheckoutPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">PIN Code</label>
+                    <label htmlFor="checkout-pincode" className="block text-[11px] font-bold tracking-[0.15em] text-gray-500 uppercase mb-2">PIN Code</label>
                     <input
+                      id="checkout-pincode"
                       type="text"
                       value={formData.pincode}
                       onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
                       required
                       placeholder="110001"
-                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors placeholder:text-gray-400"
+                      className="w-full px-4 py-3 bg-transparent border border-black/20 text-black rounded focus:border-teal-600 focus:outline-none transition-colors placeholder:text-gray-500"
                     />
                     {/* TODO: pincode serviceability check against courier partner — deferred */}
                   </div>
