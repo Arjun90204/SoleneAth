@@ -8,15 +8,13 @@ Every item below is currently a placeholder, mock, or missing entirely.
 
 ## 🔴 BLOCKERS — cannot go live without these
 
-- [ ] **APPLY THE PENDING SECURITY MIGRATION.** A live-tested security pass
+- [x] **APPLY THE PENDING SECURITY MIGRATION.** ~~A live-tested security pass
       (2026-07-22) found that any logged-in user could grant themselves
-      admin access — see the writeup further down. The fix is written at
+      admin access~~ — fix applied and confirmed live (2026-07-29): re-tested
+      PATCHing `is_admin` on your own profile via REST API, now correctly
+      returns 403. Migration
       `supabase/migrations/20260722000000_restrict_profile_column_updates.sql`
-      but has NOT been confirmed applied to the live project yet (a local
-      networking issue blocked running it directly — either it was run
-      manually via the SQL editor, or it still needs to be). Verify this
-      is live before accepting real signups: try PATCHing your own
-      `is_admin` field as a logged-in user via the REST API — it must fail.
+      is live.
 
 - [ ] **Payment gateway**: Razorpay is currently MOCKED in `CheckoutPage.tsx`
       (search for `// TODO: REAL RAZORPAY`). Needs live business account,
@@ -36,8 +34,12 @@ Every item below is currently a placeholder, mock, or missing entirely.
 
 ## 🟠 IMPORTANT — will hurt badly if skipped
 
-- [ ] **Real admin dashboard**: `/admin` is currently a bare read-only shell.
-      No order status updates, no refund issuing, no inventory editing.
+- [x] **Real admin dashboard**: ~~`/admin` is currently a bare read-only
+      shell. No order status updates, no refund issuing, no inventory
+      editing.~~ Built and verified end-to-end (2026-07-29) — see writeup
+      further down. Order status/payment updates and inventory editing are
+      live. Note: "refund" here only flips `payment_status` to `refunded`,
+      no real money moves until Razorpay is integrated.
 - [ ] **Receipt emails**: `CheckoutPage.tsx` does not currently send anything.
       Needs Supabase Edge Function + Resend/SendGrid on payment confirmation,
       plus a stored business-copy in Supabase Storage.
@@ -259,7 +261,38 @@ instead), actual Safari/Firefox engines (only one Chromium-based browser
 available), ERP/WMS/payment-gateway/bot-mitigation testing (none of this
 is built yet).
 
+## Real admin dashboard built (2026-07-29)
+
+`/admin` upgraded from a read-only shell to a working two-tab dashboard
+(Orders / Inventory). Order status and payment status are editable via
+dropdowns; product variant stock is editable via a filterable table.
+
+- New migration
+  `supabase/migrations/20260729000000_admin_order_and_inventory_actions.sql`
+  adds `admin_update_order()` and `admin_update_inventory()` — both
+  `SECURITY DEFINER`, both check `is_admin` on the caller server-side, both
+  validate inputs against a fixed allowed-value list, both explicitly
+  `REVOKE EXECUTE FROM PUBLIC` / `GRANT ... TO authenticated`. Deliberately
+  NOT a blanket "admins can UPDATE orders" RLS policy — the 2026-07-22
+  privilege-escalation bug came from exactly that pattern on `profiles`.
+- Verified via direct REST calls: order status update, payment status
+  update, partial updates (COALESCE — updating one field leaves the other
+  untouched), invalid-status rejection, negative-inventory rejection, and
+  non-admin callers rejected with `not_authorized` for both functions.
+- Verified in-browser end-to-end logged in as a real admin account: tab
+  switching, both dropdowns, and the inventory number input all correctly
+  call their RPC and persist — confirmed by reading the row back afterward,
+  not just trusting the UI's optimistic state.
+- "Refund" in this UI only flips `payment_status` to `refunded` — no money
+  actually moves. Real refunds need the Razorpay integration (still
+  deferred — no business account/API keys yet).
+- Test data left in the project from this and the prior security pass:
+  accounts `sectest.usera@gmail.com`, `sectest.userb@gmail.com`,
+  `admintest.solean@gmail.com`, `nonadmin.solean@gmail.com`, and order
+  `SECTEST-A1`. Clean up via Dashboard → Authentication → Users when
+  convenient — harmless to leave, but not real customer data.
+
 ---
-*Last updated: shell build phase, post end-to-end verification. Update this
-file every time you defer something new, and delete lines as items get
-genuinely finished.*
+*Last updated: 2026-07-29, after building and verifying the real admin
+dashboard. Update this file every time you defer something new, and delete
+lines as items get genuinely finished.*
