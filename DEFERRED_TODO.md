@@ -78,8 +78,9 @@ Every item below is currently a placeholder, mock, or missing entirely.
 - Product/category browsing, filtering, sorting — fully functional
 - GST calculation (18%) — fully functional (rate is currently hardcoded,
   confirm this is correct for your product HSN codes before launch)
-- Admin shell (`/admin`) — verified showing all orders across users when
-  `is_admin = true`
+- Admin dashboard (`/admin`) — order status/payment updates, inventory
+  editing, and full product management (create/edit/delete + image
+  uploads) are all real and verified. See dated writeups below.
 - Product search (`/search?q=`) — queries name + description against
   Postgres, wired to the header's search icon
 - **Inventory oversell locking** — `place_order()` (see
@@ -292,7 +293,42 @@ dropdowns; product variant stock is editable via a filterable table.
   `SECTEST-A1`. Clean up via Dashboard → Authentication → Users when
   convenient — harmless to leave, but not real customer data.
 
+## Product management + image uploads added to admin (2026-07-30)
+
+`/admin` Products tab: create/edit/delete products, with size×color
+variants auto-created on save and a real image upload flow (replaces
+manually pasting image URLs).
+
+- Migrations: `20260730000000_admin_product_management.sql`
+  (`admin_upsert_product()`), `20260730010000_product_images_storage.sql`
+  (public `product-images` storage bucket + RLS — write access gated by
+  `is_admin` via bucket policy instead of a SECURITY DEFINER function,
+  since Storage has no RPC layer), `20260730020000_admin_delete_product.sql`
+  (`admin_delete_product()`). Same pattern as the order/inventory RPCs
+  throughout: explicit `is_admin` check, no blanket write policy.
+- Image upload: click-to-browse or paste (Ctrl/Cmd+V) an image directly
+  into the form, 5MB cap, uploads to the public bucket, gets a real public
+  URL back. Verified an uploaded image actually renders on the live
+  storefront product page, not just in the admin preview.
+- `admin_upsert_product()` creates any missing size×color variant combo
+  on save (mirrors the seed data's cross-join), starting at 0 stock — set
+  actual quantities on the Inventory tab afterward. Existing variants are
+  never touched on re-save.
+- Delete removes the product row (variants cascade, stale cart_items
+  cascade, order_items keep their snapshotted product_name/price so past
+  orders still display correctly) plus a best-effort cleanup of any images
+  the product owned in the storage bucket.
+- Found and worked around: direct REST `DELETE` against `products`
+  silently no-ops (returns 204 but affects 0 rows) because no RLS policy
+  permits it — correct fail-closed behavior, but a real footgun if you
+  forget it and assume the delete happened. `admin_delete_product()` is
+  the only sanctioned way to delete a product now.
+- Verified end-to-end twice: once creating+deleting a product with an
+  uploaded image and confirming both the DB row and the storage file were
+  actually gone afterward (not just removed from UI state), and once more
+  as a full create → storefront-render → delete round trip.
+
 ---
-*Last updated: 2026-07-29, after building and verifying the real admin
-dashboard. Update this file every time you defer something new, and delete
-lines as items get genuinely finished.*
+*Last updated: 2026-07-30, after building and verifying admin product
+management with image uploads and delete. Update this file every time you
+defer something new, and delete lines as items get genuinely finished.*
