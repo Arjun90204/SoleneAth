@@ -63,6 +63,15 @@ export function ProductPage() {
     (v) => v.size === selectedSize && v.color === selectedColor
   )
 
+  useEffect(() => {
+    // Keep quantity from exceeding the actual stock for whichever variant
+    // is currently selected — switching to a lower-stock size/color, or
+    // just incrementing past what's left, silently let people select more
+    // than could ever check out (checkout still correctly rejects it, but
+    // not before making them fill in the whole shipping form first).
+    setQuantity((q) => Math.min(q, Math.max(selectedVariant?.inventory ?? 1, 1)))
+  }, [selectedVariant])
+
   const handleAddToCart = async () => {
     if (!user) {
       window.location.href = '/login'
@@ -279,13 +288,17 @@ export function ProductPage() {
                 </button>
                 <span className="w-12 text-center text-black font-bold" aria-live="polite">{quantity}</span>
                 <button
-                  onClick={() => setQuantity(quantity + 1)}
+                  onClick={() => setQuantity(Math.min(quantity + 1, selectedVariant?.inventory ?? Infinity))}
+                  disabled={!!selectedVariant && quantity >= selectedVariant.inventory}
                   aria-label="Increase quantity"
-                  className="w-12 h-12 flex items-center justify-center text-black hover:bg-black/5 transition-colors"
+                  className="w-12 h-12 flex items-center justify-center text-black hover:bg-black/5 transition-colors disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
               </div>
+              {selectedVariant && selectedVariant.inventory > 0 && selectedVariant.inventory <= 5 && (
+                <p className="text-xs text-teal-700 mt-2">Only {selectedVariant.inventory} left in stock</p>
+              )}
             </div>
 
             <div className="mt-8">

@@ -118,14 +118,18 @@ export function CartPage() {
                         <span className="w-10 text-center text-black text-sm" aria-live="polite">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          disabled={!!variant && item.quantity >= variant.inventory}
                           aria-label={`Increase quantity of ${product.name}`}
-                          className="w-10 h-10 flex items-center justify-center text-black hover:bg-black/5 transition-colors"
+                          className="w-10 h-10 flex items-center justify-center text-black hover:bg-black/5 transition-colors disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent"
                         >
                           <Plus className="w-3 h-3" />
                         </button>
                       </div>
                       <span className="font-bold text-black">{formatPrice(itemPrice * item.quantity)}</span>
                     </div>
+                    {variant && item.quantity >= variant.inventory && (
+                      <p className="text-xs text-gray-500 mt-2">Only {variant.inventory} in stock</p>
+                    )}
                   </div>
                 </div>
               )
